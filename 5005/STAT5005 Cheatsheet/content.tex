@@ -1,0 +1,686 @@
+\section*{Measure Theory}
+
+\vspace{-2ex}
+
+Sec1. Probability Space \hrulefill
+
+\begin{defi}
+    $\sigma$-field $\cF$: i) $\Omega \in \cF$; ii) if $A \in \cF$, then $\comp{A} \in \cF$; \newline 
+    iii) if $A_1, A_2, \dots \in \cF$, then $\cup_{i=1}^\infty A_i \in \cF$.
+    
+    algebra: iii) if $A_1, \dots A_n \in \cF$, then $\cup_{i=1}^n A_i \in \cF$.
+\end{defi}
+
+\begin{fact}
+    if $\cF_i, i\in I$ are all $\sigma$-fields, $\cap_{i\in I} \cF_i$ is a $\sigma$-field.
+\end{fact}
+
+\begin{defi}
+    measure $\mu$: i) $\mu(A) \geq 0, \forall A \in \cF$; ii) $\mu(\emptyset) = 0$; \newline
+    iii) if $A_1, A_2, \dots \in \cF$ disjoint, then $\mu(\cup_i A_i) = \sum_i \mu(A_i)$.
+\end{defi}
+
+\begin{thm}{1.1.1}
+    % i) monotonicity: if $A \subset B$, then $\mu(A) \leq \mu(B)$. \newline
+    % ii) subadditivity: if $A \subset \cap_m A_m$
+    iii) continuity from below: if $A_i \uparrow A$, then $\mu(A_i) \uparrow \mu(A)$.
+    iv) continuity from above: if $A_i \downarrow A$ and $\mu(A_1) < \infty$, then $\mu(A_i) \downarrow \mu(A)$.
+\end{thm}
+
+\begin{defi}
+    Borel $\sigma$-field: $\cR = \sigma(\{(a, b]: -\infty < a < b < \infty\})$.
+\end{defi}
+
+\begin{defi}
+    $\pi$-system $\cP$: if $A, B \in \cP$, then $A \cap B \in \cP$.
+    
+    $\lambda$-system $\cL$: 
+        i) $\Omega \in \cL$; 
+        ii) if $A, B \in \cL$ and $A \subset B$, then $B\backslash A \in \cL$; \newline
+        iii) if $A_1, A_2, \dots \in \cL$, and $A_i \uparrow A$, then $A \in \cL$.
+\end{defi}
+
+\begin{ex}{$\star$}
+    if $\cF$ is $\pi$-system and $\lambda$-system, then $\cF$ is $\sigma$-field.
+\end{ex}
+
+\begin{thm}{2.1.2}
+    if $\cP$ is $\pi$-system, $\cL$ is $\lambda$-system, $\cP \subset \cL$, then $\sigma(\cP) \subset \cL$.
+\end{thm}
+
+Sec2-1. Measurable Function \hrulefill
+
+\begin{defi}
+    $f$ is meas- if $\{\omega_1\in\Omega_1: f(\omega_1)\in A\} = \inv{f}(A) \in \cF_1$, $\forall A\in \cF_2$.
+\end{defi}
+
+\begin{fact}
+    gen- $\sigma$-field by $f$: $\sigma(f) = \{\inv{f}(A): A\in \cF_2\}$ is $\sigma$-field in $\Omega_1$,
+    $\{A \subset \Omega_2: \inv{f}(A) \in \cF_1\}$ is a $\sigma$-field in $\Omega_2$.
+\end{fact}
+
+\begin{thm}{1.3.1}
+    if $\cF_2 = \sigma(\cA_2)$, and $\inv{f}(\cA_2) \subset \cF_1$, then $f$ is meas-.
+\end{thm}
+
+\begin{thm}{1.3.2}
+    if $f_1$ and $f_2$ are meas-, then $f_2 \circ f_1$ is meas-.
+\end{thm}
+
+\begin{defi}
+    induced measure: $\mu_2(A) = \mu_1(\inv{f}(A))$.
+\end{defi}
+
+Sec2-2. Random Variable \hrulefill
+
+
+% \begin{thm}{1.3.3}
+    
+% \end{thm}
+
+\begin{thm}{1.3.5}
+    $\inf_n X_n, \sup_n X_n, \lim\sup X_n, \lim\inf X_n$ are r-v-.
+\end{thm}
+
+\begin{ex}{1.3.1}
+    $ \sigma(\inv{X}(\cA)) = \inv{X}(\sigma(\cA))$    
+    \newline 
+    Hint: $\cC = \{B \in \sigma(\cA): \inv{X}(B) \in \sigma(\inv{X}(\cA)) \}$.
+\end{ex}
+
+
+Sec2-3. Distribution \hrulefill
+
+\begin{thm}{1.2.2} 
+    $\Omega = (0, 1), \cF = \cR, P = \text{Lebesgue measure}$, then 
+    $X(\omega) = \inv{F}(\omega) = \inf\{y \in \bR: F(y) \geq \omega\} = \sup\{y \in \bR: F(y) < \omega\}$ with dist- $F$.
+    
+    Hint: $\{\omega: \omega \leq F(x)\} = \{\omega: X(\omega) \leq x\}$, right-continuous of $F$.
+\end{thm}
+
+Sec3. Expectation \hrulefill
+
+\begin{defi}
+    indicator \verb|->| simple \verb|->| non-negative \verb|->| arbitrary.
+    \newline case3: $\bE{X} = \sup \left\{\bE{Y}: 0 \!\leq\! Y \!\leq\! X, Y \text{ is simple} \right\}$.
+\end{defi}
+
+\begin{prop}
+    a) monotonicity, b) linearity.
+    \newline Hint: $Z_M^{(u)} = \frac{1}{2^{M}} \ceil{ 2^MZ }, Z_M^{(l)} = \frac{1}{2^{M}} \ceil{ 2^MZ -1 }$ for truc- case.
+\end{prop}
+
+\begin{thm}{MC}
+    $X_n$ n-n seq- r-v-. if $X_n \uparrow X$, then $\bE{X_n} \uparrow \bE{X}$.
+    
+    Hint: $Y_\epsilon = \sum_i (b_i - \epsilon/2) 1_{B_i}$.
+\end{thm}
+
+\begin{thm}{Fatou's L}
+    if $X_n \geq 0$, then $\lim\inf_n \bE{X_n} \geq \bE{\lim\inf_n X_n}$.
+\end{thm}
+
+\begin{thm}{DC}
+    if $X_n \rightarrow X$, $\abs{X_n} \leq Y$ with $\bE{Y} < \infty$, then $\bE{Y_n} \rightarrow \bE{Y}$.
+\end{thm}
+
+\begin{thm}{Jensen}
+    if $\bE{X} < \infty$, $\varphi$ is convex, then $\bE{\abs{\varphi(X)}} \leq \infty$.
+\end{thm}
+
+\begin{thm}{Hölder}
+    if $p, q \geq 1$ and $\frac{1}{p} + \frac{1}{q} = 1$, then $\bE{\abs{XY}} \leq \norm{p}{X} + \norm{q}{Y}$.
+    Hint: $x \cdot y \leq x^p / p + x^q / q$ via concav- of $\log$.
+\end{thm}
+
+\begin{thm}{Minkowski}
+    for $p \geq 1$, $\norm{p}{X+Y} \leq \norm{p}{X} + \norm{p}{Y}$.
+\end{thm}
+
+\begin{thm}{Markov}
+    if r-v- $X \geq 0$ and $a > 0$, then $\prob{ X \geq a} \leq \frac{1}{a}\bE{X}$.
+\end{thm}
+
+\begin{thm}{Chebyshev}
+    if $\exists$ var, then $\prob{\abs{X-\bE{X}} \geq a} \leq \frac{1}{a^2} \var{X}$.
+\end{thm}
+
+\newcol
+
+\section*{Law of Large Number}
+
+\vspace{-1em}
+
+Sec1. Independence \hrulefill
+
+\begin{defi}
+    inde- events \verb|->| collections ($\sigma$-fields) \verb|->| random variables.
+\end{defi}
+
+\begin{thm}{2.1.3}
+    if $\pi$-sys- $\cA_i\rvert_{i=1}^n$ are inde-, then $\sigma(\cA_i)\rvert_{i=1}^n$ are indep-.
+\end{thm}
+
+\begin{thm}{2.1.4}
+    r-v- $X_i\rvert_{i=1}^n$ are inde- if-f- $P(\cap_i \{X_i \!\leq\! x_i\}) \!=\! \prod_i \! P(X_i \tleq x_i)$.
+\end{thm}
+
+\begin{thm}{-}
+    if $X_i\rvert_{i=1}^n$ are inde-, then $\sigma(X_i\!: i\in I) \indep \sigma(X_j\!: j\in \comp{I})$.
+\end{thm}
+
+\begin{thm}{2.1.5}
+    if $X_i\rvert_{i=1}^n\!$ inde-, then $g(X_i, i\tin I) \tindep h(X_j, j\tin \comp{I})$, $g, h$ meas-.
+\end{thm}
+
+\begin{thm}{2.1.8}
+    if $X, Y$ inde-, $\bE{\cdot}$ $\tl \infty$ or $\tgeq 0$, then $\bE{XY} = \bE{X}\bE{Y}$.
+\end{thm}
+
+\begin{thm}{Kolmogorov's 0-1 Law}
+    if $X_i$'s inde-, 
+    \newline tail $\sigma$-field $\cT \!=\! \cap_n \sigma(X_k, k\tgeq n)$, then $P(A) = 0, 1$ for $A \in \cT$.
+    
+\end{thm}
+
+Sec2-1. Weak Law of Large Number \hrulefill
+
+\begin{defi}
+    converges in prob: if $\forall\ \epsilon > 0$, $P(\abs{Y_n \tm Y} \tg \epsilon) \rightarrow 0$, as $n \rightarrow \infty$.
+    % \newline converges in $L_p$: $\bE{\abs{Y_n \tm Y}^p} \rightarrow 0$ as $n \rightarrow \infty$.
+\end{defi}
+
+\begin{thm}{2.2.6} (WLLN for triangular arrays)
+    
+    suppose that $\{X_{n, k}\!: 1\tleq k\tleq n\}$ are inde-, $\bar{X}_{n, k} = X_{n, k} \indic{\abs{X_{n,k}} \leq b_n}$, 
+    \newline if i) $\sum_{k=1}^n P(\abs{X_{n,k}} \tgeq b_n) \rightarrow 0$, ii) $b_n^{-2}\sum_{k=1}^n \bE{(\bar{X}_{n,k})^2} \rightarrow 0$,
+    $\vphantom{ \indic{ \abs{X_{n,k}} } }$ 
+    \newline $a_n = \sum_{k=1}^n \bE{}$, then $ (S_n - a_n)/b_n \rightarrow 0$ in prob-.
+\end{thm}
+
+\begin{thm}{2.2.7} (WLLN without moment assumption) $\mu_n \teq \bE{X \indic{X \leq n}}$.
+
+    \vspace{-1ex} i.i.d. if $x P(\abs{X_1} > x) \rightarrow 0$ as $x \rightarrow \infty$, 
+    then $\frac{1}{n} S_n - \mu_n \rightarrow 0$ in prob-.
+
+    Remark: for $0 \tl \epsilon \tl 1$, $\bE{\abs{X}^{1 - \epsilon}} < \infty$.
+\end{thm}
+
+\begin{lem}{2.2.8}
+    if $Y \geq 0$ and $p > 0$, then $\bE{Y^p} = \int_0^\infty p y^{p-1} P(Y \tg y) dy$.
+\end{lem}
+
+\begin{thm}{2.2.9} (WLLN with finite 1st moment)
+    \newline i.i.d. $\mu = \bE{X_1}$. if $\bE{\abs{X_1}} \tl \infty$, then $\frac{1}{n}S_n - \mu \rightarrow 0$ in prob. 
+\end{thm}
+
+Sec2-2. Strong Law of Large Number \hrulefill
+
+\begin{defi}
+    events $A_n$ occurs infinitely often
+    $\{A_n \io \} \teq \cap_n \! \cup_k \! A_k$.
+    % \lim_n\sup_{k \geq n} A_k = 
+\end{defi}
+
+\begin{fact}
+    $Y_n \rightarrow Y$ a.s. if-f- $\forall \epsilon > 0, P(\abs{Y_n - Y} \tg \epsilon \io) = 0$ 
+\end{fact}
+
+\begin{thm}{2.3.1/6} (Borel-Cantelli Lemma) 
+    \newline 
+    i) if $\sum_n P(A_n) < \infty$, then $P(A_n \io) = 0$.
+    \newline
+    ii) if $\sum_n P(A_n) = \infty$ and $A_n$'s indep-, then $\prob{A_n \io} = 1$.
+\end{thm}
+
+\begin{thm}{2.3.5} (SLLN with 4M)
+    i.i.d. $\bE{X_i^4} \tl \infty$, then $S_n/n \tra \mu$ a.s.
+\end{thm}
+
+\begin{thm}{2.3.3}
+    if $Y_n \tra Y$ in prob. then $\exists\ n(k)$ s.t. $Y_{n(k)} \tra Y$ a.s.
+\end{thm}
+
+\begin{thm}{2.3.8} (gen B-C(ii)) 
+    $\sum_{n} P(A_n) = \infty$, then $\frac{ \sum_i 1\{A_i\} }{ \sum_i P(A_i) } \tra 1$ a.s.
+\end{thm}
+
+
+\begin{thm}{SLLN}
+    i.i.d. $\bE{\abs{X_i}} \tl \infty$, then $S_n/n \rightarrow \mu$ a.s.
+    
+    Hint: n-trunc \verb|->| subseq $k(n) \teq \lfloor \alpha^n \rfloor, \forall \alpha \tg 1$. $\sum_i \var{Y_i}/i^2 < \infty$.
+    
+    Remark: if $S_n/n \rightarrow \mu$ a.s. then $\bE{X_i} = \mu < \infty$. via B-C(ii) \verb|+| 2.2.8.
+\end{thm}
+
+\begin{thm}{2.4.5}
+    i.i.d. $\bE{X_i^+} \teq \infty, \bE{X_i^-} \tl \infty$, then $S_n/n \tra \infty$. (M-trunc.)
+\end{thm}
+
+\begin{thm}{2.4.7}
+    r-v- $F_n(x) = \frac{1}{n}\sum_i \indic{X_i \leq x}$, then $\sup_x \abs{F_n(x) - F(x)} \tra 0$.
+\end{thm}
+
+
+
+Sec3. Convergence of Random Series \hrulefill
+
+\begin{thm}{2.5.2} (Kolmogorov's Maximal Inequality)
+    \newline 
+    indep-, $\bE{X_i} \teq 0$, $\bE{X_i^2} \tl \infty$, then $\prob{\max_{k\leq n} \abs{S_k} \geq x} \leq \bE{S_n^2} / x^2 $.
+    
+    Hint: $A_k = \{\abs{S_i} \text{ for } i < k, \abs{S_k} \geq x\}$.
+\end{thm}
+
+\begin{thm}{2.5.3}
+    indep-, $\bE{X_i} \teq 0$. $\sum_i \bE{X_i^2} \tleq \infty$ \verb|=>| $\sum_i X_i$ converges a.s. 
+    \newline
+    Hint: $\omega_M = \sup_{m, n \geq M} \abs{S_m - S_n} \downarrow 0$ a.s. as $M \tra \infty$.
+\end{thm}
+
+\begin{thm}{2.5.4} (Kolmo-'s three-series thm) 
+    $X_i$ indep-, $Y_i = X_i \indic{\abs{X_i} < A}$, 
+    if i) $\sum \prob{\abs{X_n} \tg A} \tl \infty$, ii) $\sum \bE{Y_n}$ converges, iii) $\sum \var{Y_n} \tl \infty$, 
+    \newline then $\sum X_n$ converges a.s.
+\end{thm}
+
+\begin{thm}{2.2.5} (Kronecker's Lemma)
+    if $a_n \uparrow \infty$ and $\sum_n\! (x_n / a_n)$ converges, then $(\sum_{m=1}^n \! x_m) / a_n \rightarrow 0$. Remark: second proof of SLLN.
+\end{thm}
+
+\begin{thm}{2.2.8} (M-Z SLLN) 
+i.i.d. $\bE{X_i} = 0$, $\bE{\abs{X_i}^p} \tl \infty$ for $1 \tl p \tl 2$, then $S_n / n^{1/p} \rightarrow 0$ a.s.  Remark: also true for $0 \tl p \tl 1$.
+\end{thm}
+
+
+\section*{Central Limit Theorem}
+
+\vspace{-1em}
+
+Sec1. Convergence in Distribution \hrulefill
+
+\begin{thm}{} (Stirling's Formula)
+    $n ! \sim n^n e^{-n} \sqrt{2 \pi n}$ as $n \rightarrow \infty$.
+\end{thm}
+
+%%%% Lemma 3.1.1 Exercise 3.1.1.
+
+\begin{defi}
+    d.f.s $F_n \tRa F$ weakly conv, if $F_n(y) \tra F(y)$ at $\forall$ cont-point $y$ of $F$.
+\end{defi}
+
+\begin{fact}
+    i) if $X_n \tra X$ in p., then $X_n \tRa X$. ii) if $X_n \tRa c$, then $X_n \tra c$ in p.
+\end{fact}
+
+\begin{thm}{3.2.2} (Skorokhod's Theorem) if $F_n \tRa F_\infty$, 
+    \newline then $\exists\ Y_n$ on the same prob-space, $Y_n$ has d.f. $F_n$ and $Y_n \tra Y_\infty$ a.s.
+    
+    Hint: $\Omega_0 = \{ \text{preimage of } F \text{ is either empty or unique real number} \}$.
+\end{thm}
+
+\begin{thm}{3.2.3}
+    $X_n \tRa X$ if-f- $\forall\ g$ bounded and conti-, $\bE{g(X_n)} \tra \bE{g(X)}$.
+\end{thm}
+
+\begin{thm}{-} (CLT with finite 3-rd moment) 
+    i.i.d. $\bE{X_1} = \mu$, $\var{X_1} = \sigma^2$, 
+    
+    if $\bE{\abs{X_1}^2} \tl \infty$, then $W_n = \sum_i (X_i - \mu) / \sigma \sqrt{n} \Rightarrow Z \sim N(0, 1)$.
+    
+    Hint: Lindeberg's Swap- Argument, T-expan for bd- cont- deriv- 3 order. 
+\end{thm}
+
+Sec2. Characteristic Functions
+
+\begin{defi}
+    ch.f. $\varphi(t) = \bE{e^{itX}} = \bE{\cos(tX)} + i\cdot\bE{\sin(tX)}$.
+\end{defi}
+
+\begin{prop}
+    iii) (uniformly cont-) $\sup_t \abs{\varphi(t+h) - \varphi(t)} \rightarrow 0$ as $h \rightarrow 0$.
+\end{prop}
+%%%% i) ii) iv) v)
+
+\begin{lem}{3.3.7}
+    $\displaystyle \abs{e^{ix} - \sum_{m=0}^n \frac{(ix)^m}{m!}} \leq 
+    \min(\frac{\abs{x}^{n+1}}{(n+1)!}, \frac{2\abs{x}^n}{n!})$.
+\end{lem}
+
+\vspace{-1ex}
+
+\begin{thm}{3.3.8}
+    if $\bE{X^2} \tl \infty$, then $\varphi(t) \teq 1 \tp it \bE{X} - \frac{t^2}{2} \bE{X^2} + o(t^2)$.
+\end{thm}
+
+\begin{thm}{3.3.4} (Inversion Formula) 
+    \[ \lim_{T \rightarrow \infty} \frac{1}{2\pi} \! \int_{-T}^{T} \! \frac{e^{-ita} \tm e^{-itb}}{it} \varphi(t) \, dt \teq \prob{a \tl X \tl b} + \frac{1}{2} \prob{X \teq a} + \frac{1}{2} \prob{X \teq b}.\]
+    
+    \vspace{-1ex}
+    Hint: i) $\lim_T \int_0^T \frac{\sin(tc)}{t} \, dt = \frac{\pi}{2} \cdot \sgn{c}$. ii) $\abs{\int_0^T \frac{\sin(tc)}{t} \, dt} \leq 4$.
+\end{thm}
+
+\begin{thm}{3.3.5}
+    if $\int \abs{\varphi(t)} dt \tl \infty$, then $X$ has bd-ct- den- $f \teq \frac{1}{2\pi} e^{-itx} \varphi(t) dt$.
+\end{thm}
+
+\begin{thm}{3.3.6}
+    i) if $X_n \Rightarrow X$, then $\varphi_{X_n}(t) \rightarrow \varphi_X(t), \forall\, t\in \bR$.
+    
+    ii) if $\varphi_{X_n}(t) \rightarrow \varphi_X(t)$ for $\forall\, t$ and $\varphi$ is cont- at $0$, then $X_n \Rightarrow X$. 
+\end{thm}
+
+\begin{thm}{3.4.1}(CLT)
+    i.i.d. $\sim (\mu, \sigma^2)$, then $(S_n - n\mu) / \sigma\sqrt{n} \Rightarrow \chi$.
+\end{thm}
+% $\bE{X_i} \teq \mu, \var{X_i} \teq \sigma^2$
+
+\begin{thm}{3.4.2}
+     if $c_n \rightarrow c \in \bC$, then $(1 + c_n/n)^n \rightarrow e^c$.
+\end{thm}
+
+\begin{lem}{3.4.3}
+    $\abs{z_1}, \abs{w_n} \leq \theta$, then $\abs{\prod_m \! z_m \tm \prod_m \! w_m} \tleq \theta^{n \tm 1}\!\sum_m \abs{z_m \tm w_m}$. 
+\end{lem}
+
+\begin{lem}{3.4.4}
+    if $b \in \bC$ and $\abs{b} \leq 1$, then $\abs{e^b - (1+b)} \leq \abs{b}^2$.
+\end{lem}
+
+\begin{lem}{3.4.5}(Lindeberg-Feller Theorem)
+    \newline
+    for each $n$, $\{\xi_{n,i}\}_{k=1}^n$ are indep- with $\bE{\xi_{n,i}} = 0, \bE{\sum_i \xi_{n, i}^2} = 1$.
+    \newline if (L's cond-) $\forall\, \epsilon>0, \sum_i\bE{\xi_{n, i}^2 \indic{\xi_{n,i} > \epsilon}} \rightarrow 0$, then $\sum_i \xi_{n, i} \Rightarrow \chi$.
+    
+    Hint: $\phi_{n, i} = 1 - \frac12 t^2 \bE{\xi_{n, i}^2}$, ex3.1.1 \verb|->| lem3.4.3 \verb|->| lem3.3.7. \verb|->| $\epsilon$.
+    
+    \vspace{-.5ex} Remark: $\sum_i \bE{\abs{\xi_{n, i}}^p} \rightarrow 0$, $p>2$ \verb|=>| L's cond- \verb|=>| $\max_i \bE{\xi_{n, i}^2} \rightarrow 0$.
+\end{lem}
+
+\begin{thm}{2.5.4}(converse of Three-Series Theorem)
+    \newline indep-, if $\sum_n X_n$ converges a.s., then $\forall\, A$, $Y_i = X_i \indic{\abs{X_i} \leq A}$ i) ii) iii).
+    
+    Hint: i) contra- \verb|->| iii) contra-, $\xi_{n,m}$, L-F \verb|->| ii).
+\end{thm}
+
+
+
+\newpage
+
+
+\section*{Random Walks}
+
+Sec1. Random Walks \hrulefill
+
+\begin{defi}
+    if r-v-s $X_i$ i.i.d. $S_n \teq \sum_i \! X_i$, then $\{S_n\}$ is random walk with $S_0 \teq 0$.
+\end{defi}
+
+\begin{thm}{4.1.1} (Hewitt-Savage 0-1 Law) 
+    \newline if $A$ is permutable (Not change under finite perm-), then $\prob{A} \teq 0$ or $1$.
+\end{thm}
+
+\begin{thm}{4.1.2} For random walk on $\bR$, one of follow- has prob- $1$:
+    \newline i) $S_n = 0$ ii) $S_n \tra \infty$ iii) $S_n \tra -\infty$ iv) $-\infty \teq \liminf S_n \tl \limsup S_n \teq \infty$.
+    \newline Hint: consider $\prob{\limsup S_n > c}$.
+\end{thm}
+
+\begin{defi} 
+    $\cF_0 \teq \{\varnothing, \Omega\}, \cF_n \teq \sigma(X_1, \dots, X_n)$ seq- of incr- $\sigma$-fields is filtration.
+\end{defi}
+
+\begin{defi}
+    rand-time $\tau \!\in\! \bR^+ \!\cup\! \{\infty\}$ is stopping time wrt $\{\cF_n\}$ if $\{\tau \teq n\}\ttin \cF_n$.
+\end{defi}
+
+\begin{fact}
+    i) $\{\tau \teq n\} \ttin \cF_n$ ii) $\{\tau \tleq n\} \ttin \cF_n$ iii) $\{\tau \tgeq n+1\} \ttin \cF_n$ are equival-.
+\end{fact}
+
+\begin{fact}
+    i) $\tau_1 \vee \tau_2$ ii) $\tau_1 \wedge \tau_2$ iii) $\tau_1 + \tau_2$ iv) $\tau_1 \times \tau_2$ are stopping times.
+\end{fact}
+
+\begin{thm}{4.1.5} (Wald's eq)
+    i.i.d. if $\bE{X_1}, \bE{\tau} \tleq \infty$, then $\bE{S_\tau} \teq \bE{X_1} \bE{\tau}$.
+\end{thm}
+
+\begin{thm}{4.1.6} (W's 2eq)
+    i.i.d.$\sim\! (0, \sigma^2)$, if $\bE{\tau} < \infty$, then $\bE{S^2_\tau} = \sigma^2\bE{\tau}$.
+    
+    Hint: $\bE{S^2_{\tau \wedge n}} = \bE{S^2_{\tau \wedge (n \tm 1)}} + \sigma^2 \prob{\tau \tgeq n}$, consider $\bE{(S_{\tau \wedge n} \tm S_{\tau \wedge m})^2}$.
+\end{thm}
+
+%%%% Example 4.1.5.
+
+Sec2. Recurrence v.s. Transience \hrulefill
+
+\begin{defi}
+    RW, $\tau = \inf\{m \geq 1: S_m = 0\}$, $\tau_n = \inf\{m > \tau_{n-1}: S_m = 0\}$.
+    
+    RW is recurrent, if $\prob{\tau < \infty} = 1$; transient, if $\prob{\tau < \infty} < 1$.
+\end{defi}
+
+\begin{thm}{4.2.2}
+    equivalent i) $\prob{\tau < \infty} = 1$; ii) $\prob{\tau_n < \infty} = 1, \forall\, n$; 
+    \newline iii) $\prob{S_n = 0, \io} = 1$; iv) $\sum_m \prob{S_m = 0} = \infty$.
+\end{thm}
+
+\begin{thm}{4.2.3}
+    SRW is recurrent in $d \leq 2$, but is transient in $\bR^d$ for $d \geq 3$.
+\end{thm}
+
+%%%% exercise tau a->b
+
+
+
+\newcol
+
+\section*{Martingale}
+
+Sec1. Conditional Expectation \hrulefill
+
+\begin{defi}
+    $(\Omega, \cF, \cP)$, $\bE{\abs{X}} \tl \infty$, $\sigma$-field $\cA \subset \cF$, $\bE{X \vert \cA}$ cond-expectation,
+    
+    if i) $\bE{X \vert \cA}$ is $\cA$-measurable, ii) $\forall\, A \in \cA$, $\bE{X \indica{A}} = \bE{ \bE{X \vert A} \indica{A}}$.
+    
+    uniqueness. Hint: consider $A = \{Y_1 - Y_2 \geq \epsilon > 0\}$.
+\end{defi}
+
+\begin{prop}
+    \begin{enumerate}[leftmargin = 2em, label = (\alph*)]
+        \item $\bE{X} = \bE{\bE{X \vert \cA}}$.
+        \item $\abs{\bE{X \vert \cA}} \leq \bE{\abs{X} \vert \cA}$.
+        \item if $X \in \cA$, then $\bE{X \vert \cA} = X$.
+        \item if $X$ is independent of $\cA$, then $\bE{X \vert \cA} = \bE{X}$.
+        \item (linearity) if $\bE{X}, \bE{Y} < \infty$, then $\bE{a X + Y \vert \cA} = a \bE{X \vert \cA} + \bE{Y \vert \cA} $.
+        \item (monotonicity) if $X \leq Y$, then $\bE{X \vert \cA} \leq \bE{Y \vert \cA}$.
+        \item [] Hint: consider $A = \{ \bE{X \vert \cA} - \bE{Y \vert \cA} \geq \epsilon > 0\}$.
+        \item (cmct) if $X_n \geq 0, X_n \uparrow X, \bE{X} < \infty$, then $\bE{X_n \vert \cA} \uparrow \bE{X \vert \cA}$.
+        \item (cFatou) if $X_n \tgeq 0$, $\bE{\underline{\lim} X_n} \tl \infty$, then $\underline{\lim} \bE{X_n \vert \cA} \tgeq \bE{\underline{\lim} X_n \vert \cA}$.
+        \item (cdct) if $\abs{X_n} \tleq Y, \bE{Y} \tl \infty, X_n \!\tra\! X$a.s, then $\bE{X_n \vert \cA} \tra \bE{X \vert \cA}$ a.s.
+        \item (cJen) if conv-$\varphi$, $\bE{\abs{X}}, \bE{\abs{\varphi(X)}} \tl \infty$, then $\varphi(\bE{X \vert \cA}) \!\tleq\! \bE{\varphi(X) \vert \cA}$.
+        \item (cHol) if $p, q \geq 1$ and $\frac{1}{p} + \frac{1}{q} = 1$, $\bE{\abs{X}^p}, \bE{\abs{Y}^q} < \infty$, 
+            \newline $\bE{\abs{X Y} \vert \cA} \leq (\bE{\abs{X}^p \vert \cA})^{1/p} (\bE{\abs{Y}^q \vert \cA})^{1/q}$.
+            
+            Hint: suppose $\bE{\abs{X}^p \vert \cA} \geq \epsilon > 0$, take $\abs{X'} = (\abs{X}^p + \epsilon^p)^{1/p}$, DCT.
+        \item (cMin) if $p \tgeq 1, \bE{\abs{X}^p}, \bE{\abs{Y}^p} \tl \infty$, 
+            \newline then $(\bE{\abs{X+Y}^p \vert \cA})^{1/p} \leq (\bE{\abs{X}^p \vert \cA})^{1/p} + (\bE{\abs{Y}^p \vert \cA})^{1/p}$
+        \item (cMar) if $X \geq 0, a > 0$, then $\prob{X \geq a \vert \cA} \leq \bE{X \vert \cA} / a$.
+        \item if $\bE{\abs{X}}, \bE{\abs{X Y}} < \infty$ and $X \in \cA$, then $\bE{X Y \vert \cA} = X \bE{Y \vert \cA}$.
+        
+        Hint: four cases of $X$.
+        \item (Tower Property) if $\bE{\abs{X}} < \infty, \cA_1 \subset \cA_2$, then 
+        
+            i) $\bE{ \bE{X \vert \cA_1} \vert \cA_2} = \bE{X \vert \cA_1}$ 
+            ii) $\bE{ \bE{X \vert \cA_2} \vert \cA_1} = \bE{X \vert \cA_1} $
+            
+            Remark: small $\sigma$-field always wins.
+        \item (triangular eq) if $\bE{X^2} < \infty$, then for $\forall\, Y \!\in\! \cA$ with $\bE{Y^2} < \infty$, 
+            
+            $\bE{(X - \bE{X \vert \cA})^2} \leq \bE{(X - Y)^2}$.
+        \item $\var{X} \geq \bE{\var{X \vert \cA}}$.
+        \item if $Z \indep (X, Y)$, then $\bE{X \vert Y, Z} = \bE{X \vert Y}$.
+            
+            Hint: $\cP = \{B \cap C\}$, $\cL = \{A \in \sigma(Y, Z): \bE{X \indica{A}} = \bE{ \bE{X \vert Y} \indica{A}}\}$.
+    \end{enumerate}
+\end{prop}
+
+
+
+Sec2. Martingale \hrulefill 
+
+\begin{defi}
+    $\{S_n\}$ is martingale w.r.t. filtration $\{\cF_n\}$ if 
+    
+    i) $\bE{\abs{S_n}} < \infty$, ii) $S_n \in \cF_n$, iii) $\bE{S_{n+1} \vert \cF_n} = S_n$.
+    
+    % Remark: i) $\bE{S_{n+m} \vert \cF_n} \teq S_n$, ii) $\bE{S_1} \teq \bE{S_2} \!= $, iii) $\bE{\abs{S_1}} \tleq \bE{\abs{S_2}} \!\leq $.
+\end{defi}
+
+\begin{fact}
+    i) $\bE{S_{n+m} \vert \cF_n} \teq S_n$, ii) $\bE{S_1} \teq \bE{S_2} \!= $, iii) $\bE{\abs{S_1}} \tleq \bE{\abs{S_2}} \!\leq $.
+\end{fact}
+
+\begin{defi}
+    martingale difference: $X_n = S_n - S_{n-1}$, and $S_0 = 0$.
+\end{defi}
+
+\begin{fact}
+    i) $\bE{X_i} = 0$ for $i \geq 2$. ii) $\bE{S_n^2} = \bE{X_1^2} + \dots + \bE{X_n^2}$.
+\end{fact}
+
+\begin{defi}
+    super-(sub-)martingale: iii) $\bE{S_n \vert \cF_{n-1}} \leq (\geq) S_{n-1}$.
+    
+    Remark: martingale is both super-/sub-martingale.
+\end{defi}
+
+\begin{thm}{5.2.3-4} (martingale transformation)
+    
+    i) if $\{S_n, \cF_n\}$ mt, $\varphi$ convex, $\bE{\abs{\varphi(S_n)}} \tl \infty$, then $\{\varphi(S_n)\}$ is sub-mt.
+    
+    ii) if $\{S_n\}$ sub-mt, $\varphi$ convex $\uparrow$, $\bE{\abs{\varphi(S_n)}} \tl \infty$, then $\{\varphi(S_n)\}$ is sub-mt.
+\end{thm}
+
+\begin{thm}{5.2.8} (martingale convergence theorem)
+    \newline
+    if $\{S_n, \cF_n\}$ sub-mt, $\liminf \bE{S_n^+} \tl \infty$, then $S_n \rightarrow S$ a.s. and $\bE{\abs{S}} \tl \infty$.
+    \newline
+    Remark: by Cauchy-Schwarz ineq, $\bE{S_n^+} \leq \sqrt{\bE{S_n^2}}$.
+\end{thm}
+
+\begin{thm}{5.2.9}
+    if $\{S_n \geq 0\}$ super-mt, then $S_n \rightarrow S$ a.s. and $\bE{\abs{S}} \tl \infty$.
+\end{thm}
+
+\begin{thm}{5.2.7}
+    if $S_n$ sub-mt, then $\bE{U_n} \leq \frac{1}{b-a} [\bE{(S_n \!- a)^+} - \bE{(S_1 \!- a)^+}]$.
+    
+    $N_{2k-1} = \inf\{m \tg N_{2k-2}\!: X_m \leq a\}, N_{2k} = \inf\{m \tg N_{2k-1}\!: X_m \geq b\}$,
+    
+    $N_0 = -1, H_m = \sum_k \indic{N_{2k-1}  < m \leq N_{2k}}, U_n = \sup \{k: N_{2k} \leq n\}$.
+\end{thm}
+
+
+\begin{thm}{5.2.5}
+    if $S_n$ is super-mt, $H_m \!\in\! \cF_{m-1}$ predict-, and $0 \tleq H_m \tleq c_m $,
+    $T_1 = S_1, T_n = S_1 + \sum\limits_{m=2}^n H_m (S_m \tm S_{m-1})$, then $\{T_n\}$ is super-mt.
+\end{thm}
+
+\vspace{-1ex}\begin{thm}{5.2.6}
+    if $S_n$ sp-mt, $\tau$ st, then $S_{n \wedge \tau}$ is sp-mt, and $\bE{S_{n \wedge \tau}} \tgeq \bE{S_n}$.
+    
+    \vspace{-1ex} Hint: $X_n$ mt-dif, $T_n \teq S_{n \wedge \tau} \teq \sum\limits_{k=1}^{n} X_{k} \indic{k \leq \tau}$, $\bE{T_{n}} \geq \bE{T_{n-1}} + \bE{X_{n}}$.
+\end{thm}
+
+\begin{thm}{5.4.2} (Doob's inequality)
+    if $S_n$ sub-mt, then $\forall\, x \tg 0$, 
+    \vspace{-1ex}\[  
+        \prob{\max_{1 \leq k\leq n} S_k \tgeq x} 
+        \leq \frac{1}{x} \bE{S_n \indic{\max_k S_k \geq x}} 
+        \leq \frac{1}{x} \bE{S_n^+}
+    \]
+    Hint: consider $N = \inf\{k \geq 1\!: S_k \geq x\}$ and $\indica{A} \leq \frac{S_{n \wedge N}}{x} \indica{A}$.
+\end{thm}
+
+\begin{thm}{5.4.3} ($L^p$ maximum ineq.) if $S_n$ sub-mt, $p > 1$, then 
+    \[ \bE{ (\max_{1 \leq k \leq n} S_k^+)^p } \leq (\frac{p}{p-1})^p \bE{(S_n^+)^p}.\]
+\end{thm}
+
+\begin{thm}{5.4.5} ($L^p$ convergene theorem) $S_n$ martingale, $p > 1$.
+
+    if $\sup_n \bE{\abs{S_n}^p} < \infty$, then $S_n \tra S$ a.s. and $\bE{\abs{S_n \tm S}^p} \tra 0$.
+\end{thm}
+
+\begin{defi}
+    uniformly integrable, $\lim_{M\tra \infty} \sup_n \bE{\abs{X_n} \indic{\abs{X_n} > M}} = 0$.
+\end{defi}
+
+\begin{thm}{-} ($L^1$ convergence) $S_n$ martingale and uniformly integrable, then
+    $S_n \rightarrow S$ a.s. and $\bE{\abs{S_n - S}} \rightarrow 0$.
+\end{thm}
+
+\begin{thm}{-} (LLN) identical $X_n$ with $\bE{\abs{X_1}} < \infty$, 
+
+    $S_1 = X_1$, $S_n = S_{n-1} + X_n - \bE{X_n \vert \cF_{n-1}}$, then $S_n/n \rightarrow 0$ in prob.
+\end{thm}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% \begin{ex}{2.3.11}
+%     if $P(A_n) \tra 0$ and $\sum \prob{A_n^c \!\cap\! A_{n+1}} \tl \infty$, then $\prob{A_n \io} \teq 0$.
+% \end{ex}

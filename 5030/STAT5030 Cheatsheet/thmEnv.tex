@@ -1,0 +1,20 @@
+\usepackage{amsthm}
+
+\newtheoremstyle{note}% <name>
+{3pt}% <Space above>
+{3pt}% <Space below>
+{}% <Body font>
+{}% <Indent amount>
+{\bfseries}% <Theorem head font>
+{.}% <Punctuation after theorem head>
+{.5em}% <Space after theorem head>
+{}% <Theorem head spec (can be left empty, meaning `normal')>
+
+\theoremstyle{note}
+\newtheorem{thm}{Thm}[section]
+\newtheorem{defn}[thm]{Def}
+\newtheorem{cor}[thm]{Cor}
+\newtheorem{lem}[thm]{Lemma}
+
+
+\renewcommand{\thethm}{\arabic{thm}}% Remove subsection from theorem counter representation

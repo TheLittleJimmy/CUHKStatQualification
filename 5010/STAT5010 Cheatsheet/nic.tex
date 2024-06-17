@@ -1,0 +1,24 @@
+
+
+For the density $$
+    p_\eta(x) = \exp\{\eta x-A(\eta)\}h(x), \quad -\infty<x<\infty,
+$$
+the conjugate prior family is $$
+    \pi(\eta \cond k, \mu) = c(k, \mu)\exp\{k\eta\mu - kA(\eta)\},
+$$
+where $\mu$ can be viewed as a prior mean and $k \propto$ prior variance.
+
+Properties: \begin{enumerate}[
+        leftmargin = 2em,
+    ]
+    \item $\mbe[X] = A'(\eta)$ and $\var(X) = A''(\eta)$,
+    \item $\mbe[A'(\eta)] = \mu$ and $\var[A'(\eta)] = \frac{1}{k}\mbe[A''(\eta)]$. 
+\end{enumerate}
+
+For the density $
+    p_{\bdeta} (\bx) = \exp\{\sum_{i=1}^s\eta_i T_i(\bx) - A(\bdeta) \}h(\bx),
+$
+then $$
+    \mbe\left[ \sum_{i=1}^s \eta_i \frac{\partial\, T_i(\bx)}{\partial\, x_j} \cond \bx\right] = \frac{\partial}{\partial\, x_j}\log m(\bx) - \frac{\partial}{\partial\, x_j} \log h(\bx),
+$$
+where $m(\bx) = \int p_{\bdeta}(\bx)\pi(\bdeta) d\bdeta$.

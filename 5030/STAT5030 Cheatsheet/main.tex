@@ -1,0 +1,53 @@
+\documentclass[a4paper, 10pt]{article}
+\usepackage[utf8]{inputenc}
+
+\title{STAT5010 Cheatsheet}
+
+\usepackage[
+    landscape,
+    margin = .5in
+]{geometry}
+\setlength\parindent{0pt}
+\usepackage[parfill]{parskip}
+\usepackage{multicol}
+
+\usepackage{titlesec}
+\titleformat{\section} % command
+    % [display] % shape "display"//"wrap"
+    {\normalsize\bfseries} % format
+    {} % label
+    {} % sep
+    {} % before-code
+    [] % 
+
+
+\usepackage{enumerate}
+\usepackage{enumitem} %% for `noitemsep`
+% \setitemize{
+%     leftmargin = 0\parindent,
+% }
+\setlist[enumerate]{topsep=0pt}
+
+\usepackage{amsmath, amssymb, amsfonts, mathtools}
+
+\input{thmEnv}
+\input{cmd}
+
+\begin{document}
+
+%% font size
+
+% \tiny
+% \scriptsize
+\footnotesize
+% \small
+
+\pagestyle{empty}
+\setlength{\abovedisplayskip}{3pt}
+\setlength{\belowdisplayskip}{2pt}
+
+\begin{multicols*}{3}
+    \input{content}
+\end{multicols*}
+
+\end{document}

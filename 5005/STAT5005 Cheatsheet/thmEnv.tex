@@ -1,0 +1,46 @@
+\usepackage{amsthm}
+
+\newtheoremstyle{note}% <name>
+{0pt}% <Space above>
+{0pt}% <Space below>
+{}% <Body font>
+{}% <Indent amount>
+{\bfseries}% <Theorem head font>
+{.}% <Punctuation after theorem head>
+{0.5em}% <Space after theorem head>
+{}% <Theorem head spec (can be left empty, meaning `normal')>
+
+\theoremstyle{note}
+\newtheorem{thminner}{Thm}
+% \newtheorem{definner}{Def}
+\newtheorem{corinner}{Cor}
+\newtheorem{leminner}{Lem}
+\newtheorem{exinner}{Ex}
+\newtheorem*{defi}{Def}
+\newtheorem*{fact}{Fact}
+\newtheorem*{prop}{Prop}
+
+\newenvironment{thm}[1] {%
+    \renewcommand\thethminner{#1}%
+    \thminner
+}{\endthminner}
+
+% \newenvironment{defn}[1] {%
+%     \renewcommand\thedefinner{#1}%
+%     \definner
+% }{\enddefinner}
+
+\newenvironment{cor}[1] {%
+    \renewcommand\thecorinner{#1}%
+    \corinner
+}{\endcorinner}
+
+\newenvironment{lem}[1] {%
+    \renewcommand\theleminner{#1}%
+    \leminner
+}{\endleminner}
+
+\newenvironment{ex}[1] {%
+    \renewcommand\theexinner{#1}%
+    \exinner
+}{\endexinner}

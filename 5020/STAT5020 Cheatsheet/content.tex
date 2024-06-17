@@ -1,0 +1,417 @@
+
+\section*{Basic Concepts}
+
+\vspace{-1em}
+
+Linear SEM \phantom{g} \hrule
+
+measurement equation:
+    \[\by = \bmu + \bLam \bome + \beps.\]
+\begin{itemize}
+    \item confirmatory factor analysis,
+    \item observed variables $\sim$ (outcome \& explanatory) latent variables,
+    \item non-overlapping structure for factor loadings.
+\end{itemize}
+
+
+structural equation: 
+    \[\boldeta = \bPi \boldeta + \bGam \bxi + \bdel.\]
+\begin{itemize}
+    \item outcome latent variables $\sim$ explanatory latent variables,
+    \item $\bPi \boldeta$: linear relationship between outcome latent variables.
+    \item $\diag{\bPi} = \bzero$ and $(\bI{} - \bPi)$ is non-singular.
+\end{itemize}
+
+identification: $(\bLam, \bPi, \bGam)$ \begin{itemize}
+    \item non-overlapping structure for factor-load  with fixed values (1 \& 0),
+    \item \textsc{or} fix the var-covariance matrix of $\bome$ as identity matrix.
+\end{itemize}
+
+
+assumptions: \begin{enumerate}
+    \item $\beps_i$ i.i.d. normal with diagonal cov-matrix $\bpsi{\epsilon}$,
+    \item $\bxi_i$ i.i.d. normal with general cov-matrix $\bphi$,
+    \item $\bdel_i$ i.i.d. normal with diagonal cov-matrix $\bpsi{\delta}$,
+    \item $\bdel_i$ indep-of $\bxi_i$, and $\beps_i$ indep-of $\bome_i$ and $\bdel_i$.
+    % \item residual errors in m.e. follow i.i.d. normal with diagonal cov-matrix.
+    % \item explanatory latent-vars follow i.i.d. normal with general cov-matrix
+    % \item residual errors in s.e. follow i.i.d. normal with diagonal cov-matrix.
+    % \item residual errors in s.e. are independent of explanatory latent variables, residual errors in m.e. is independent of latent variables and residual errors in s.e.
+\end{enumerate}
+
+
+interpretation: \begin{itemize}
+    \item lat-var ... is only linked with obs-var's ..., but not to other obs.
+    \item the o-lv ... is explained by the e-lv's ... (and other o-lv ...).
+    \item $\bLam / \bGam$: mag- of the expect-changes in o-lv for a one-unit change in e-lv.
+\end{itemize}
+
+distribution: 
+\[
+    [\bome_i \vert \btheta] 
+    \sim \normalx{
+        \bzero
+    }{
+        \bSig_{\omega} \!=\! 
+        \begin{bmatrix}
+        \bPi_0^{-\!1} (\bGam \bphi \bGam'   + \bpsi{\delta}) (\bPi_0^{-\!1})' 
+        & \bPi_0^{-\!1} \bGam \bphi \\
+        \bphi \bGam' (\bPi_0^{-\!1})'
+        & \bphi\\
+    \end{bmatrix}
+    }
+\]
+
+SEM with fixed covariates \phantom{g} \hrule
+    \[
+        \begin{dcases}
+            \by = \bA \bc + \bLam \bome + \beps. \\
+            \boldeta = \bB\bd + \bPi \boldeta + \bGam \bxi + \bdel.
+        \end{dcases}
+    \]
+interpretation:
+\begin{itemize}
+    \item identify the lat-var via the cor-obs-var's with help of the fixed covar-.
+\end{itemize}
+
+Nonlinear SEM \phantom{g} \hrule
+    \[
+        \begin{dcases}
+            \by = \bmu + \bLam \bome + \beps. \\
+            \boldeta = \bPi \boldeta + \bGam \bF(\bxi) + \bdel.
+        \end{dcases}
+    \]
+
+distribution of observed o-lv's and observed data is \textsc{not} normal.
+
+interpretation:\begin{itemize}
+    \item capture component-specific nonlin-eff- of e-lv's (and covar-) on o-lv.
+\end{itemize}
+
+
+\vspace{-1em}
+
+\section*{Bayesian Methods for Estimating SEMs}
+
+\vspace{-1em}
+
+
+Traditional approach: covariance structural analysis approach. \begin{itemize}
+    \item only under some standard assumptions (linearity and normality).
+\end{itemize}
+
+prior distribution: \begin{itemize}
+    \item conjugate families with reasonable spreads.
+    \item set aside part of data as training sample coped  with noninfo-prior to produce an info-prior-inputs, then estimate from remainder of data.
+    \item \underline{sensitive analysis}: perturbing the given hyperpars in priors.
+\end{itemize}
+
+
+% prior distribution: \begin{itemize}
+%     \item sensitive analysis: perturbing the given hyperpars in priors.
+% \end{itemize}
+
+difference between traditional est. and Bayesian est. \begin{enumerate}
+    \item confident interval (asymptotic normal), credible interval (percentile).
+    \item \textsc{not} appropriate to construct a ``z-score'' for hypothesis testing for Bayesian est., convert to model comparison.
+    \item direct Bay-est for lat-var, which is not express- in terms of struct-par-est.
+        used for \underline{outlier and residual analysis}, and \underline{assess- of good-of-fit}.
+\end{enumerate}
+
+posterior analysis: \begin{itemize}
+    \item data augmentation: Gibbs sampler \begin{itemize}[leftmargin = 1em]
+        \item treat lat-var as hypothetical missing data, augment obs with them.
+    \end{itemize}
+    \item check convergence \begin{itemize}[leftmargin = 1em]
+        \item traceplot: parallel seq with diff-start-values mix well together.
+        \item EPSR: estimated potential scale reduction. (less than $1.2$)
+        \item [] between/within-seq-var of several sim-seq from diff-start-points.
+        \[
+            \widehat{\text{var}}(\theta) =\frac{n-1}{n}W + \frac{1}{n}B, 
+            \quad \hat{R}^{1/2} = (\widehat{\text{var}}(\theta) / W)^{1/2}.
+        \]
+    \end{itemize}
+\end{itemize}
+
+\vspace{-1em}
+
+\section*{Model Comparison and Model Checking}
+\vspace{-1em}
+
+Bayesian factor: ratio of marginal likelihood $B_{10} = \dfrac{P(\bY \vert M_1)}{P(\bY \vert M_0)} $.
+
+\vspace{-1ex} path sampling: \begin{enumerate}
+    \item construct link model: $M_t$ reduces to $M_1 / M_0$ when $t = 1 / 0$.
+    \item at fixed grid $t = t_{(s)}$, gen- $\{(\bOme^{(j)}, \btheta^{(j)}): j \leq J\}$ from $p(\bOme, \btheta \vert \bY, t)$.
+    \item calculate $U(\bY, \bOme^{(j)}\!, \btheta^{(j)}\!, t_{(s)})$ by substitut- $\{(\bOme^{(j)}, \btheta^{(j)})\}$ in follow-eq
+        \[U(\bY, \bOme, \btheta, t_{(s)}) = \frac{d}{dt}\log p(\bY, \bOme \vert \btheta, t) \rvert_{t = t_{(s)}}\]
+    \item \vspace{-1ex} calculate $\displaystyle \bar{U}_{(s)} = \frac{1}{J} \sum_{j=1}^J U(\bY, \bOme^{(j)}\!, \btheta^{(j)}\!, t_{(s)})$,
+    \item \vspace{-1ex} calculate $\displaystyle \widehat{\log B_{10}} = \frac{1}{2} \sum_{s = 0}^S (t_{(s + 1)} - t_{(s)})(\bar{U}_{(s+1)} + \bar{U}_{(s)})$.
+\end{enumerate}
+
+$\displaystyle \text{BIC}_k/\text{AIC}_k = -2\log p(\bY \vert \btheta_k, M_k) + d_k \log n/2 d_k$. 
+
+Deviance Information Criteria: $\text{DIC}_k = \overline{D(\btheta_k)} + d_k$ for $M_k$, where \begin{itemize}
+    \item goodness-of-fit $\displaystyle \overline{D(\btheta_k)} = \bEp{\btheta_k}{-2\log p(\bY \vert \btheta_k, M_k) \vert \bY}$,
+    \item effective \# par $\displaystyle d_k = \bEp{\btheta_k}{-2\log p(\bY \vert \btheta_k, M_k) \vert \bY} + 2 \log p(\bY \vert \tilde{\btheta}_k, M_k)$.
+\end{itemize}
+
+$L_\nu$-measure, based on prediction. (criteria above: smaller, better)
+
+posterior predictive $p$-values: (criteria: not far from $0.5$)
+\vspace{1ex}
+\[p_B(\bY) \!=\! \text{Pr}(D(\bY^{\text{rep}} \vert \btheta, \bOme) \!\geq\! D(\bY \vert \btheta, \bOme) \vert \bY, M_0).\]
+
+% residual analysis: \begin{itemize}
+%     \item obtain est-lat-var, so that reliable est-residuals can be obtained.
+% \end{itemize}
+
+
+
+
+
+
+\section*{Distributions}
+
+standard distribution: \begin{itemize}
+    \item $\bx \sim \normal{\bmu}{\bSig}$: $
+        \displaystyle p(x) = |2\pi\bSig|^{-\frac{1}{2}} \exp\left\{ -\frac{1}{2} (\bx - \bmu)' \bSig^{-1} (\bx - \bmu)\right\}.
+    $
+    \item $\theta \sim \ig[\alpha, \beta]$: $p(\theta) \propto \theta^{-(\alpha + 1)} e^{-\beta/\theta}$.
+    \item $\bW \sim \iw_q[\bR_0^{-1}, \rho_0]$: 
+        \[p(\bW) \propto |\bR_0|^{-\rho_0/2} |\bW|^{-(\rho_0 + q + 1)/2} \exp\{-\frac{1}{2} \tr(\bR_0^{-1} \bW^{-1})\}\]
+\end{itemize}
+
+priors: \begin{itemize}
+    \item $\psi_{\epsilon k} \sim \ig[\alpha_{0 \epsilon k}, \beta_{0 \epsilon k}]$, $[\bLam_k \vert \psi_{\epsilon k}] \sim \normal{\bLam_{0k}}{\psi_{\epsilon k} \bH_{0yk}}$.
+    \item $\bmu \sim \normal{\bmu_0}{\bSig_0}$, $\bphi \sim \iw_{q_2}[\bR_0^{-1}, \rho_0]$.
+\end{itemize}
+
+
+
+conditional distribution: \begin{itemize}
+    \item $[\bphi \vert \bOme_2] \sim \iw_{q_2} [(\bOme_2\bOme_2' + \bR_0^{-1}), n+\rho_0]$.
+\end{itemize}
+
+
+
+
+
+
+
+
+\newpage
+
+\section*{Some Practical SEMs}
+
+SEMs with ordered categorical variables \hrule
+
+measurement equation: \vspace{-1ex}\[
+    \bv = \begin{pmatrix} \bx \\ \by \end{pmatrix} = \bmu + \bLam \bome + \beps
+\] \begin{itemize}
+    \item $\bx$ is $r \times 1$ observed continuous variables,
+    \item $\bz = [z_k]$ is $s \times 1$ observed ordered categorical variables,
+    \item $\by = [y_k]$ is $s \times 1$ latent continuous measurement corresponding to $\bz$
+\end{itemize}
+\[
+    \alpha_{k, z_k} \leq y_k < \alpha_{k, z_k + 1}, \quad 1 \leq k \leq s,
+\]\begin{itemize}
+    \item integer $0 \leq z_k \leq b_k$, total $(b_k + 1)$ categories.
+    \item $-\infty = \alpha_{k, 0} < \alpha_{k ,1} < \dots < \alpha_{k, b_k} < \alpha_{k, b_k+1} = \infty$.
+\end{itemize}
+
+identification: \begin{itemize}
+    \item fix $\alpha_{k, 1} = \Phi^{* -\!1}(f_{k, 1})$ and $\alpha_{k, b_k} = \Phi^{* -\!1}(f_{k, b_k})$, $\Phi^{*}$ dist-fun of $\normal{0}{1}$, $f_{k, 1}$, $f_{k, b_k}$ are freq of first group, and cum-freq of cat $z_k < b_k$.
+\end{itemize}
+
+SEMs with dichotomous variables \phantom{g} \hrule
+
+measurement equation:
+\[
+    \by = \bmu + \bLam \bome + \beps
+\]
+\begin{itemize}
+    \item $\bz = [z_k]$ observed dichotomous variables,
+    \item $\by = [y_k]$ not available corresponding exact measurement.
+\end{itemize}
+\[
+    z_k = \indic{y_k > 0}.
+\]
+
+identification: fix $\psi_{\epsilon k} = 1$.
+
+conditional distribution:
+\[
+    [y_{ik} \vert \btheta, \bome_i, \bz_i] \sim \begin{dcases}
+        \normal{\mu_k + \bLam_k' \bome_i}{1} I_{(-\infty, 0]}, \quad & \text{if } z_{ik} = 0,\\
+        \normal{\mu_k + \bLam_k' \bome_i}{1} I_{(0, \infty)}, & \text{if } z_{ik} = 1.
+    \end{dcases}
+\]
+
+% identification: \begin{itemize}
+%     \item fix $\psi_{\epsilon k} = 1$.
+% \end{itemize}
+
+
+
+SEMs with Exponential Family Distributions \hrule
+
+EFDs with canonical form:
+\[
+    p(y_k \vert \bome) = \exp\{ \frac{1}{\psi_{\epsilon k}} [y_k \vartheta_k - b(\vartheta_{k}) ] + c_k(y_k, \psi_{\epsilon k}) \},
+\]
+with $\bE{y_k \vert \bome} = \dot{b}(\vartheta_k), \var{y_k \vert \bome} = \psi_{\epsilon k} \ddot{b}(\vartheta_k) $.
+
+``measurement" equation: \[
+    \vartheta_k = \bA_k' \bc + \bLam_k'\bome,
+\]
+
+
+SEMs with missing data \hrule
+
+missing indicator: $r_{ik} = 1$ if $y_{ik}$ is missing, otherwise $r_{ik} = 0$.
+
+missing mechanism $P(r_{i} \vert y_{i, \obs}, \bOme, \btheta)$: \begin{itemize}
+    \item $= C$, missing completely at random, ignorable,
+    \item $= p(r_{i} \vert y_{i, \obs, \bOme, \btheta})$, missing at random, ignorable,
+    \item $= p(r_{i} \vert y_{i, \mis}, y_{i, \obs}, \bOme, \btheta)$, missing not at random, non-ignorable.
+\end{itemize}
+
+\vspace{-2ex}
+\[[\bv_{i, \mis} \vert \btheta, \bome_i] \sim \normal{\bmu_{i, \mis} + \bLam_{i, \mis} \bome_i}{\bpsi{i, \mis}}\]
+
+independence assumption: \[
+    p(\br \vert \bV, \bOme, \bvphi) 
+    = \prod_i \prod_j (\text{Pr}(r_{ij} = 1 \vert \cdot))^{r_{ij}}
+    (1 - \text{Pr}(r_{ij} = 1 \vert \cdot))^{1 - r_{ij}}
+\]
+logistic regression: 
+\[\text{logit}(\text{Pr}(r_{ij} = 1 \vert \bv_i, \bome_i, \bvphi)) = \varphi_0 + \varphi_1 v_{i1} + \cdots + \varphi_p v_{ip}.\]
+
+conditional distribution: \[
+    p(\bome_i \vert \bv_i, \btheta, \bvphi, \br_i) \propto_{\bome_i} p(\br_i \vert ..) p(\bv_i \vert ..) p(\boldeta_i \vert ..) p(\bxi_i \vert \btheta)
+\]
+
+\section*{SEMs for hierarchical and multisample Data}
+
+
+
+\vspace{-2ex}
+SEMs for hierarchical data \phantom{g}\hrule
+
+
+dependence between obs within groups, due exist- of group mean.
+
+
+measurement equation: 
+\vspace{.5ex}\[ \bu_{gi} = \underline{\bmu + \bLam_2 \bome_{2g} + \beps_{2g}} + \bLam_{1g} \bome_{1gi} + \beps_{1gi}\]
+\begin{itemize}
+    \item within-group: $\displaystyle \bu_{gi} = \bv_g + \bLam_{1g} \bome_{1gi} + \beps_{1gi}, \quad \beps_{1gi} \sim \normal{\bzero}{\bpsi{1g}}$,
+    \item between-group: $\displaystyle \bv_g = \bmu + \bLam_2 \bome_{2g} + \beps_{2g}, \quad \beps_{2g} \sim \normal{\bzero}{\bpsi{2}}$.
+\end{itemize}
+
+Latent variables: \begin{itemize}
+    \item within-group: $\bOme_1 = [\bOme_{11}, \dots, \bOme_{1G}]$,
+    \item between-group: $\bOme_2 = [\bome_{21}, \dots, \bome_{2G}]$ and $\bV = [\bv_1, \dots, \bv_G]$.
+\end{itemize}
+
+common assumption: within-group pars are invariate over groups.
+
+
+
+SEMs with multisample data \hrule
+
+goal: investigate the similar-differ among models in diff groups. 
+
+measurement equation: \[
+    \bv^{(g)}_{i} = \bmu^{(g)} + \bLam^{(g)} \bome_i^{(g)} + \beps_i^{(g)}, \quad \beps_i^{(g)} \sim \normal{\bzero}{\bpsi{\epsilon}^{(g)}}
+\]
+ordered categorical variables: \[
+    z_m^{(g)} = k \quad \text{if } \alpha_{m, k}^{(g)} \leq y_m^{(g)} < \alpha_{m, k+1}^{(g)},
+\]
+where $0 \leq k \leq b_m, 1 \leq m \leq s$.
+
+restriction: select the first group as refer-group, interpret the unknown pars in the relative sense. \begin{itemize}
+    \item identification: $\alpha_{k, 1}^{(1)} = \Phi^{* -\!1}(f^{(1)}_{k, 1})$ and $\alpha_{k, b_k} = \Phi^{* -\!1}(f^{(1)}_{k, b_k})$,
+    \item \vspace{-.5ex} same scale among groups: $\alpha^{(g)}_{m,k} = \alpha^{(1)}_{m,k}, k = 0, 1, \dots, b_m$.
+\end{itemize}
+
+prior distribution: \begin{itemize}
+    \item consider independent priors for $\bLam^{(g)}$ and $\bpsi{\epsilon}^{(g)}$,
+    \item [] since potential problem under the constrained situation: \[
+        \bLam^{(1)} = \dots = \bLam^{(G)} = \bLam, \bpsi{\epsilon}^{(1)} \neq \cdots \neq \bpsi{\epsilon}^{(G)}.
+    \]
+\end{itemize}
+
+\section*{Mixture SEMs}
+
+\vspace{-2ex} mixture density: $f(\by_i \vert \btheta) = \sum\limits_{k = 1}^K \pi_k f_k(\by_i \vert \bmu_k, \btheta_k)$.
+
+measurement equation: \[
+    [\by_i \vert z_i = k]
+    = [\bmu_k + \bLam_k \bome_i + \beps_i \vert z_i = k], 
+    \quad [\beps_i \vert z_i = k] \sim \normal{\bzero}{\bpsi{\epsilon k}} ,
+\]
+
+prior: \begin{itemize}
+    \item $\bpi \sim $ Dirichlet$(\alpha, \dots, \alpha)$, $p(\bpi) \propto \pi_1^\alpha \dots \pi_k^\alpha$.
+\end{itemize}
+
+conditional distribution: \begin{itemize}
+    \item $\bpi \sim $ Dirichlet$(\alpha + n_1, \dots, \alpha + n_k)$, $p(\bpi \vert .. ) \propto p(\bZ \vert \bpi) p(\bpi) \propto \prod_k \pi_k^\alpha$.
+\end{itemize}
+
+
+permutation sampler: \begin{enumerate}
+    \item generate $(\bZ^{(r+1)}, \bOme^{(r+1)})$ from $p(\bOme, \bZ \vert \bY, \btheta^{(r)})$,
+    \item generate $\btheta^{(r+1)}$ from $p(\btheta \vert \bY, \bOme^{(r+1)}, \bW^{(r+1)})$.
+    \item reorder the labels through the permutation sampler to achieve identifiablity. (based on the output of random permutation sampler to find suitable identifiability constraints.)
+\end{enumerate}
+
+\section*{Latent Curve Model}
+
+longitudinal data
+
+basic latent curve model: 
+    \[\by = \bLam \boldeta + \beps_y\quad \beps_y \sim \normal{\bzero}{\bpsi{y}}.\]
+\begin{itemize}
+    \item $\by$ is $T \times 1$ vector of repeated measures,
+    \item $\bLam$ is $T \times m$ par-mat- of seq- fixed values of growth curve records,
+    \item $\boldeta$ is $m \times 1$ outcome latent growth factor.
+\end{itemize}
+
+LCM with explanatory latent variables: 
+    \[\bx_k = \bLam \bxi_k + \beps_{xk},\quad \beps_{xk} \sim \normal{\bzero}{\bpsi{xk}},\quad 1 \leq k \leq r.\]
+\begin{itemize}
+    \item $\bxi_k$ is $k$th latent growth factor, first-order explanatory.
+\end{itemize}
+
+LCM with longitudinal latent variables:
+    \[\bu_t = \bLam_{ut} \bome_{ut} + \beps_{ut}, \quad t = 1, \cdots, T,\]
+    \[\bome_k = \bLam \bxi_{r+k} + \beps_{\omega k}, \quad k = 1, \cdots, q.\]
+    \begin{itemize}
+        \item $\bu_t$ is $p \times 1$ vector of measurements, $\bLam_{ut}$ is $p \times q$ loading matrix,
+        \item $\bome_{ut} = [\omega_{utk}]_{q}, \bome_k = [\omega_{utk}]_{T}$ is vector of longitudinal latent variables,
+        \item $\bxi_{k+r}$ is $(k+r)$th latent growth factor, second-order explanatory.
+    \end{itemize}
+
+structural equation: 
+    \[\boldeta = \bbeta + \bPi \boldeta + \bGam \bF(\bxi) + \bdel = \bbeta + \bLam_\delta \bG(\bzeta) + \bdel, 
+    \quad \bxi \sim \normal{\bzero}{\bphi}.\]
+    \begin{itemize}
+        \item $\bbeta$ is $m \times 1$ population average of latent individual growth factors,
+        \item $\bPi$ structural relat- between $\boldeta$ variables, $\bGam$ unknown regression coeff-.
+    \end{itemize}
+
+observed ordered categorical variables: for $1 \leq k \leq r, 1 \leq t \leq T$,
+    \[x_{tk} = j, \quad \text{if } \alpha_{tk, j} \leq z_{tk} \leq \alpha_{tk, j+1},\ j = 0, \cdots, h_k.\]
+    \begin{itemize}
+        \item $\{-\infty = \alpha_{tk0} < \alpha_{tk, h_k+1} = \infty\}$ threshold pars define $h_k+1$ cate-.
+    \end{itemize}
+
+identifiability: \begin{itemize}
+    \item fix some value in $\bLam_{ut}$ at $0$ or $1$.
+    \item set the first threshold $\alpha_{tk, 0} = 0$ and $\psi_{xtk} = 1$.
+\end{itemize}
+
+

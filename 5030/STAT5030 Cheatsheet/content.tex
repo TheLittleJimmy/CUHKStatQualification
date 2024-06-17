@@ -1,0 +1,330 @@
+\section*{Generalized Inverse}
+
+decomposition: \begin{enumerate}
+    \item full rank: $A_{m\times n} = B_{m\times r} \cdot C_{r\times n}$.
+    \item $\exists$ nonsingular $P, Q$ s.t. $P \cdot A \cdot Q = (I_r)_{m\times n}$.
+    \item (symmetric) $\exists$ orthogonal $P$, s.t. $P^\top A P = D$.
+\end{enumerate}
+
+idempotent: $A = A^2$ \begin{enumerate}
+    \item all idempotent matrices (except $I$) are singular.
+    \item if $A$ is idempotent, then $\rank{A} = \tr{A}$.
+    \item if $A$ is idempotent, then e.v. of $A$ are $1$ or $0$.
+    \item if $A$ is sym. with e.v. $1$ and $0$, then $A$ is idempotent.
+\end{enumerate}
+
+inverse: \begin{enumerate}
+    \item left inverse: ($r = n$) $A_{\text{left}}^{-1} = (A^\top A)^{-1} A^{T}$.
+    \item right inverse: ($r = m$) $A_{\text{right}}^{-1} = A^\top (A A^\top)^{-1}$.
+    \item Moore-Penrose inverse: \begin{enumerate}
+        \item $A A^+$ and $A^+ A$ are symmetric,
+        \item $A = A A^+ A$ and $A^+ = A^+ A A^+$.
+    \end{enumerate}
+    \item generalized inverse: $A A^- A = A$.
+\end{enumerate}
+
+Moore-Penrose inverse: \begin{enumerate}
+    \item existence: $A^+ = C^\top(C C^\top)^{-1} (B^\top B)^{-1} B^{\top}$.
+    \item uniqueness: $A A^+_1 = (\underline{A A^+_2 A} A^+_1)^\top = A A^+_2$.
+    \item $\rank{A} = \rank{A^+}$.
+    \item $(A^\top)^+ = (A^+)^\top$. and if $A = A^\top$, then $A^+ = (A^+)^\top$.
+    % \item (nonsingular) $A^+ = A$.
+    % \item (symmetric idempotent) $A^+ = A$.
+    % \item (r = n // m) $A^+ = A_{\text{left}}^{-1}$ // $A_{\text{right}}^{-1}$.
+    \item $AA^+, A^+A, I_m - AA^+, I_n - A^+A$ are sym. and idempotent.
+\end{enumerate}
+
+generalized inverse: \begin{enumerate}
+    \item not unique.
+    \item Moore-Penrose inverse is also generalized inverse.
+    \item $\rank{X^-} \geq r$, $\rank{X^- X} = \rank{X X^-} = r$. 
+    \item $X^-X = I_n$ iff $\rank{X} = n$. $XX^- = I_m$ iff $\rank{X} = m$. 
+    \item [] (Hint: full-rank \verb|->| nonsingular (\verb|+| idempotent) \verb|->| identity.)
+
+    \vspace{.5ex}\hrule\vspace{-.5ex}
+    \item if $G$ is G-inv. of $X^\top X$, then $G^\top$ is also G-inv of $X^\top X$.
+    \item $\bigstar$ $X G X^\top X = X$, i.e. $G X^\top$ is G-inv. of $X$.
+    \item[] take $K = X G X^\top$, then $K X = X, X^\top K = X^\top$
+    \item $K = X G X^\top$ is invariant w.r.t. the choice of $G$.
+    \item $K = X G X^\top$ is symmetric and idempotent.
+    \item $K = X G X^\top = X X^+$.
+    % \vspace{.5ex}\hrule\vspace{-.5ex}
+\end{enumerate}
+
+\newcol
+
+\section*{Distributions and Quadratic Forms}
+
+distribution-$\chi^2$: \begin{enumerate}
+    % \item if $\bX \sim \norm{\bzero}{\bI{n}}$, then $\bX' \bX \sim \chi^2_{(n)}$.
+    \item if $\bx \sim \norm{\bmu}{\bI{n}}$, then $\bx' \bx \sim \chi^2_{(n, \lambda)}$ with $\lambda = \frac{1}{2}\bmu'\bmu$.
+    \item m.g.f. $(1-2t)^{-\frac{n}{2}}\exp\{-\lambda(1-\frac{1}{1-2t})\}$.
+    \item $w = \dfrac{u_1 / p_1}{u_2 / p_2} \sim F(p_1, p_2, \lambda)$, where $u_1 \sim \chi^2_{(p_1, \lambda)}$, $u_1 \sim \chi^2_{p_2}$.
+\end{enumerate}
+
+eigenvalue: \begin{enumerate}
+    \item for certain function $g(\bA)$, $g(\lambda)$ is an e.v. of $g(\bA)$.
+    \item $|A| = \prod \lambda_i(\bA)$, $\tr{\bA} = \sum \lambda_i(\bA)$.
+\end{enumerate}
+
+quadratic form $\bx'\bA \bx$ with $\bx \sim \norm{\bmu}{\bSigma}$: \begin{enumerate}
+    \item m.g.f.: $|\bI{} - 2t\bA\bSigma|^{-\frac{1}{2}}\exp\{-\frac{1}{2}\bmu'[\bI{} - (\bI{} - 2t\bA\bSigma)^{-1}]\bSigma^{-1}\bmu\}$.
+    \item If $\bA$ \& $\bV$ sym., $\bV$ p.d., then e.v. of $\bA\bV$ $0, 1$ \verb|->| $\bA\bV$ idem. 
+    \item [] Hint: $\bV = \bP'\bP$, $\bP \bA \bP'$ with e.v. $0$ and $1$, sym, idem.
+    \item If $\bA$ sym. idem. with rank $r$, then $\bA$ has $r$ e.v.-1 and rest -0.
+    \item $\bigstar$ $\bx'\bA\bx \sim \chi^2_{(r, \lambda)}$ with $r = \rk{\bA}, \lambda = \frac{1}{2}\bmu'\bA\bmu$ iff $\bA\bSigma$ is idem.
+    \item $\bE{\bx'\bA\bx} = \tr{\bA\bSigma} + \bmu' \bA \bmu$.
+    \item [] $\cov{\bx}{\bx'\bA\bx} = 2\bSigma\bA\bmu$. Hint: odds moment of Normal is 0.
+    \item [] $\var{\bx'\bA\bx} = 2\tr{\bA\bSigma\bA\bSigma} + 4\bmu'\bA\bSigma\bA\bmu$.
+    % \item [] Hint: $K(t) = \log M(t) = \dfrac{1}{2} \sum (2t)^r \left[ \dfrac{1}{r} \tr{(\bA\bSigma)^r} + \bmu' (\bA \bSigma)^r \bSigma^{-1} \bmu\right]$
+    \item $\bx'\bA\bx$ and $\bB \bx$ are independent iff $\bB \bSigma \bA = \bzero$.
+    \item $\bx'\bA\bx$ and $\bx' \bB \bx$ are independent iff $\bB \bSigma \bA = \bzero$.
+\end{enumerate}
+
+\section*{Identity}
+
+matrix identity: $
+    \setlength\arraycolsep{1ex}
+    \begin{bmatrix}
+        a & b \\
+        b & c \\
+    \end{bmatrix}
+    = \dfrac{1}{ac-b^2} 
+    \begin{bmatrix}
+        c & -b \\
+        -b & a \\
+    \end{bmatrix}.
+$
+
+matrix identity: $$
+    % \footnotesize
+    \tiny
+    \setlength\arraycolsep{1ex}
+    \begin{aligned}
+        \begin{bmatrix}
+            A & B \\
+            C & D \\
+        \end{bmatrix}^{-}
+        & \hspace{-1ex}= \begin{bmatrix}
+            A^- \!+\! A^- B (D \!-\! C A^- B)^- C A^- & 
+            -A^- B (D \!-\! C A^- B)^- \\
+            -(D \!-\! C A^- B)^- C A^- & 
+            (D \!-\! C A^- B)^- \\
+        \end{bmatrix} \\
+        & \hspace{-1ex}= \begin{bmatrix}
+            (A \!-\! B D^- C)^- &
+            -(A \!-\! B D^- C)^- B D^- \\
+            -D^- C (A \!-\! B D^- C)^- & 
+            D^- \!+\! D^- C (A \!-\! B D^- C)^- B D^-
+        \end{bmatrix}
+    \end{aligned}
+$$
+
+
+
+
+
+Woodbury matrix identity: $$
+    (A + BCD)^{-1} = A^{-1} - A^{-1}B(C^{-1} + D A^{-1} B)^{-1} D A^{-1}.
+$$
+
+
+\newcol 
+
+\section*{Linear Regression for the full-rank model}
+
+ordinary least squares estimation \begin{enumerate}
+    \item loss function: $L(\bbeta) = (\bY - \bX\bbeta)'(\bY - \bX\bbeta)$.
+    \item normal equation: $\bX' \bX \bbeta = \bX'\bY$.
+    \item LSE: $\hat{\bbeta} = (\bX'\bX)^{-1}\bX'\bY$.
+    \item hat matrix: $\bH = \bX (\bX' \bX)^{-1} \bX'$ \begin{itemize}
+        \item symmetric and idempotent.
+        \item projection, $\bH \bX = \bX$, $(\bI{} - \bH) \bX = \bzero$.
+    \end{itemize}
+    \item residuals: $\hat{\beps} = \bY - \hat{\bY} = (\bI{} - \bH) \bY$.
+    \item [] $\bE{\text{SSE}} = \bE{{\hat{\beps}'\hat{\beps}}} = (n-p)\sigma^2$.
+\end{enumerate}
+
+weighted least squares estimation \begin{enumerate}
+    \item assumption: $\bSigma$ is known.
+    \item loss function: $S(\bbeta) = (\bY - \bX\bbeta)'\bSigma^{-1}(\bY - \bX\bbeta)$.
+    \item WLSE: $\tilde{\bbeta} = (\bX' \bSigma^{-1} \bX)^{-1} \bX' \bSigma^{-1} \bY$
+\end{enumerate}
+
+best linear unbiased estimator: \begin{enumerate}
+    \item $
+        \begin{dcases}
+            \text{minimizes } \var{\blam'\bY} = \blam'\bSigma\blam\\
+            \text{s.t. } \bE{\blam'\bY} = \bt'\bbeta \Rightarrow \bX'\blam = \bt
+        \end{dcases}
+    $
+    \item using $2\btheta$ as Lagrange multiplier, and then minimize $$
+        W(\blam, \btheta) = \blam'\bSigma\blam - 2\btheta'(\bX'\blam - \bt).
+    $$
+    \item $\blam = \bSigma^{-1} \bX (\bX' \bSigma^{-1} \bX)^{-1} \bt$, then the (W)LSE is BLUE.
+\end{enumerate}
+
+LS theory with random parameters: \begin{enumerate}
+    \item [] $\bY = \bX \bb + \be, \quad \begin{dcases}
+        \bE{\bb} = \btheta, \var{\bb} = \bF \\
+        \bE{\be \cond \bb} = 0, \var{\be \cond \bb} = \bV
+    \end{dcases}$
+    \item $\bE{\bY} = \bE{\bE{\bY \cond \bb}} = \bX \btheta$.
+    \item [] $\var{\bY} = \bE{\var{\bY \cond \bb}} + \var{\bE{\bY \cond \bb}} = \bV + \bX\bF\bX'$.
+    \item [] $\cov{\bY}{\bp'\bb} = \bX \bF \bp$. Hint: law of total variance
+    \item [] $\cov{X}{Y} = \bE{\cov{X}{Y \cond Z}} + \cov{\bE{X \cond Z}}{\bE{Y \cond Z}}$
+\end{enumerate}
+
+MLE: \begin{enumerate}
+    \item $\hat{\bbeta}_{\text{MLE}} = \hat{\bbeta}_{\text{OLS}}$, $\hat{\sigma}^2_{\text{MLE}} = \dfrac{1}{n}\sse$.
+    \item deviations from mean: 
+    $$
+        \renewcommand\arraystretch{2}
+        \hat{\bbeta} = \begin{bmatrix}
+            \hat{\beta_0} \\
+            \hat{\bb}
+        \end{bmatrix}
+        = \begin{bmatrix}
+            \frac{1}{n} \bone{}'\bY - \frac{1}{n} \bone{}'\bX_1 \hat{\bb} \\
+            \left[\bX_1' (\bI{} - \frac{1}{n}\bJ ) \bX_1\right]^{-1} \bX_1' (\bI{} - \frac{1}{n}\bJ ) \bY
+        \end{bmatrix}
+    $$
+    \item ANOVA: $$
+        \renewcommand\arraystretch{1.5}
+        \begin{array}{lcc}
+            \text{SSM} & 1
+            & \bY' (\frac{1}{n} \bJ) \bY \\
+            \text{SSR\textsubscript{m}} & \rk{X_1}
+            & \bY' \bZ (\bZ' \bZ)^{-1} \bZ' \bY \\
+            \text{SSE} & n - \rk{X}
+            & \bY' (\bI{} - \bH) \bY 
+        \end{array}
+    $$
+\end{enumerate}
+
+\newpage 
+
+Hypothesis Testing $H_0: \bK'\bbeta = \bm$. \begin{enumerate}
+    \item $(\bK' \hat{\bbeta} - \bm) \sim \norm{\bK'\bbeta - \bm}{\sigma^2 \bK' (\bX'\bX)^{-1} \bK}$.
+    \item $\bQ = (\bK' \hat{\bbeta} - \bm)' \left[ \bK' (\bX' \bX)^{-1} \bK \right]^{-1} (\bK' \hat{\bbeta} - \bm) \sim \sigma^2\chi^2_{(s, \lambda)}$.
+    \item $\bQ$ and SSE are independent.
+    \item [] Hint: $\bK'\hat{\bbeta} - \bm = \bK'(\bX'\bX)^{-1}\bX' \left[ \bY - \bX \bK (\bK' \bK)^{-1} \bm\right] $.
+    \item $F(H) = \dfrac{\bQ / s}{\text{SSE} / (n - \rk{\bX})} \stackrel{H_0}{\sim} F_{s, n-\rk{\bX}}$.
+\end{enumerate}
+
+Estimation under constraint (Null hypothesis): \begin{enumerate}
+    \item use $2\theta$ as Lagrange multiplier
+    \item minimize $
+        W(\bbeta, \btheta) = (\bY - \bX \bbeta)' (\bY - \bX \bbeta) + 2 \btheta'(\bK' \bbeta - \bm),
+    $
+    \item get $\tilde{\bbeta} = \hat{\bbeta} - (\bX' \bX)^{-1} \bK \left[\bK' (\bX'\bX)^{-1} \bK\right]^{-1} (\bK' \hat{\bbeta} - \bm)$.
+\end{enumerate}
+
+General optimization: \begin{itemize}[leftmargin = 2em, label = -]
+    \vspace{-1em}
+    \item Goal: minimizes general $\sum\limits_{i=1}^n G_i(\bbeta)$ to get $\hat{\bbeta}_n$,
+    \item \vspace{-1ex} take partial derivative with respect to $\bbeta$: $G \rightarrow g \rightarrow \dot{g}$,
+    \item equivalent to solve $\sum_{i=1}^n \dot{g}_i(\bbeta) = 0$,
+    \item $\sqrt{n}(\hat{\bbeta}_n - \bbeta_0) \Rightarrow \norm{0}{\bA^{-\!1} \bB (\bA^{-\!1})'}$,
+    % \begin{itemize}
+        \item [] where $\bA = \bE{\dot{g}(\bbeta_0)}$ and $\bB = \var{g(\bbeta_0)}$.
+    % \end{itemize}
+\end{itemize}
+
+Quantile regression: \begin{itemize}[leftmargin = 2em, label = -]
+    \vspace{-1ex}
+    \item $G(\bbeta) = \abs{\bY - \bX\bbeta}$,
+    \item $g(\bbeta) = -\bX \cdot \sgn{\bY - \bX \bbeta}$,
+    \item $\dot{g}(\bbeta) = \bX \bX' \cdot 2 \delta(\bY - \bX \bbeta)$, Dirac delta fun.
+    \item $\sqrt{n} (\hat{\bbeta}_n - \bbeta_0) \Rightarrow \norm{0}{\frac{1}{4 f_{\epsilon}^2(0)} (\bE{\bX \bX'})^{-\!1}}$.
+    \item [] where $\bA = \bE{\dot{g}(\bbeta)} = \bE{\bX \bX'} 2 f_\epsilon(0)$, 
+    \item [] $\bB = \bE{\bX \sgn{\bY - \bX \bbeta} \cdot \bX' \sgn{\bY - \bX \bbeta}} = \bE{\bX \bX'}$.
+\end{itemize}
+
+
+
+
+\newcol
+
+\section*{Models Not Full Rank}
+
+Assumption: $\var{\beps} = \sigma^2 \bI{n}$.
+
+Scenario: $\bX'\bX$ is not full-rank.
+
+$\bigstar$ $\bX \bG \bX' \bX = \bX$ $\bigstar$, where $\bG \coloneqq (\bX' \bX)^{-}$.
+
+normal equation: \begin{enumerate}
+    \item $(\bX'\bX) \bbeta^\circ = \bX'\bY$.
+    \item one solution: $\bbeta^\circ = \bG\bX'\bY$.
+    \item general sol: $\hbbeta(\bz) = \bG\bX'\bY + (\bI{} - \bG\bX'\bX)\bz$.
+\end{enumerate}
+
+properties: \begin{enumerate}
+    \item $\bE{\bbeta^\circ} =\bG \bX'\bX \bbeta = \bH \bbeta$, where $\bH \coloneqq \bG \bX'\bX$.
+    \item $\var{\bbeta^\circ} = \sigma^2 \bG \bX'\bX \bG'$.
+    \item $\hat{\bY} = \bX\bG\bX' \bY$, $\text{SSR} = \bY' \bX\bG\bX' \bY$.
+    \item $\text{SSE} = \bY' (\bI{} - \bX\bG\bX') \bY$, with $\bE{\text{SSE}} = \sigma^2(n - \rk{X})$.
+    \item $\text{SSM} = \bY' (\frac{1}{n} \bJ )\bY$.
+\end{enumerate}
+ 
+identifiability: \begin{enumerate}
+    \item def: $f(\bbeta_1) = f(\bbeta_2)$ \verb|=>| $\bbeta_1 = \bbeta_2$.
+    \item full-rank linear model, $\bbeta$ is identifiable.
+    \item function $g(\bbeta)$ is identifiable iff $\exists\ h$ s.t. $g = h \circ f$.
+\end{enumerate}
+
+estimability: \begin{enumerate}
+    \item def: $\bq'\bbeta$ is estimable if $\exists\ \bt$ s.t. $\bt'\bE{\bY} = \bq'\bbeta$.
+    \item form of estimable function: $\bq' = \bt' \bX$.
+    \item $\bq'\bbeta^\circ = \bt'\bX\bG\bX'\bY$ is invariant to $\bG$, then to $\bbeta^\circ$.
+    \item (Gauss-Markov Thm.) BLUE for estimable $\bq'\bbeta$ is $\bq'\bbeta^\circ$.
+    \item [] Hint: $\var{\bq'\bbeta^\circ} = \cov{\bq'\bbeta^\circ}{\bk'\bY} = \sigma^2 \bq'\bG\bq$.
+    \item $\bq'\bbeta$ is estimable iff $\bq' \bH = \bq'$.
+\end{enumerate}
+
+hypothesis testing $H_0: \bK' \bbeta = \bm$. \begin{enumerate}
+    \item estimable: $\bK'\bG\bX'\bX = \bK'$.
+    \item $\bE{\bK'\bbeta^\circ} = \bK'\bbeta, \var{\bK'\bbeta^\circ} = \sigma^2 \bK' \bG \bK$.
+    \item $\bQ = (\bK'\bbeta^\circ - \bm)' (\bK'\bG\bK)^{-1} (\bK'\bbeta^\circ - \bm)$.
+    \item $F(H) = \dfrac{\bQ / s}{\text{SSE} / (n - \rk{\bX})} \stackrel{H_0}{\sim} F_{s, n-\rk{\bX}}$.
+\end{enumerate}
+    
+
+\newcol
+
+\section*{Advanced Topics in Modern Linear Models}
+
+ridge regression: consider standard $\bZ$ and center $\bY$ here.
+    \begin{enumerate}[leftmargin = 2em]
+    \item minimize $\normss{\bY - \bZ\bbeta}^2$ subject to $\normss{\bbeta}^2 \leq t$.
+    \item $\rbeta = \arg \min_{\bbeta} \normss{\bY - \bZ\bbeta}^2 + \lambda \normss{\bbeta}^2 = (\bZ'\bZ + \lambda \bI{})^{-\!1} \bZ'\bY$.
+    \item data augment: $\min \sum_{i=1}^n (y_i - \bZ_i \bbeta)^2 + \sum_{j=1}^p (0 - \sqrt{\lambda} \beta_j)^2$.
+    \item biased est. $\rbeta \!=\! (\bI{p} + \lambda \bR^{-\!1})^{-\!1} \lsbeta$, $\bR = (\bZ'\bZ)^{-\!1}$. (eigenv.)
+    \item orth. design $\bZ'\bZ = \bI{p}$, $\rbeta \! = \frac{1}{\lambda + 1} \lsbeta$. optimal $\lambda^* \!=\! \dfrac{p \sigma^2}{\normss{\bbeta}}$.
+    \item [] \vspace{-1ex} (Hint: $\mse = (\frac{1}{1+\lambda})^2 p \sigma^2 + (1 - \frac{1}{1+\lambda})^2 \normss{\bbeta}^2$.) 
+    \item Singular Value Decomp: $\bZ = \bU \bD \bV'$, orth $\bU'\bU \!=\! \bV'\bV \!=\! \bI{p}$. 
+    \item [] then $\rbeta = \bV \diag{\frac{d_j}{d_j^2 + \lambda}} \bU' \bY$.
+    \item [] \vspace{-1ex} var $= \sigma^2 \bV \diag{\frac{d_j^2}{(d_j^2 + \lambda)^2}} \bV$, 
+        bias $= \bbeta' \bV \diag{\frac{\lambda^2}{(d_j^2 + \lambda)^2}} \bV' \bbeta$,
+    \item [] \vspace{-1ex} mse $= \sum_{j=1}^p \frac{\sigma^2 d_j^2 + \lambda^2 \alpha_j^2 }{(d_j^2 + \lambda)^2} = \phi(\lambda)$, $\phi'_j(\lambda) = \frac{2 d_j^2 (\lambda\alpha_j^2 - \sigma^2)}{(d_j^2 + \lambda)^3}$.
+\end{enumerate}
+
+LASSO: \begin{enumerate}[leftmargin = 2em]
+    \item minimizes $(\bY - \bZ \bbeta)'(\bY - \bZ \bbeta)$ subject to $\sum_{j=1}^p \abs{\beta_j} \leq t$.
+    \item \vspace{-1ex} $\labeta \!\!= \arg \min_{\bbeta} \sum_{i=1}^n (y_i - \bZ_i \bbeta)^2 + \lambda \sum_{j=1}^p \abs{\beta_j}$.
+    \item orth.design. prss $= \normss{\bbeta - \lsbeta}^2 + \lambda \norma{\bbeta} + \normss{\bY - \bZ \lsbeta}^2$,
+    \item [] equivalent to $\min_{\beta_j} (\beta_j - \lsbetas_j)^2 + \lambda \abs{\beta_j}$ separately,
+    \item [] $\labetas_j = \sgn{\lsbetas_j} (\abs{\lsbetas_j} - \frac{\lambda}{2})_+ = 
+        \begin{cases}
+            \lsbetas_j - \frac{\lambda}{2} & \text{for } \lsbetas_j > \frac{\lambda}{2} \\
+            0 & \text{for } \abs{\lsbetas_j} \leq \frac{\lambda}{2} \\
+            \lsbetas_j + \frac{\lambda}{2} & \text{for } \lsbetas_j < -\frac{\lambda}{2} \\
+        \end{cases}$.
+\end{enumerate}
+
+
+% (\bZ'\bZ + \lambda \bI{})^{-\!1}
+
+
+

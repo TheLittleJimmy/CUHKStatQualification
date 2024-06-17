@@ -1,0 +1,360 @@
+
+
+\section*{Large Sample Theory}
+
+Basic Definition:
+\begin{enumerate}[
+        leftmargin = 2em,
+    ]
+    \item \underline{consistent} estimator $\delta_n$ for $g(\theta)$, if $\delta_n \rightarrow g(\theta)$ in probability.
+    \item \vspace{-1ex} asymptotic relative efficiency of $\hat{\theta}_n$ w.r.t. $\tilde{\theta}_n$ is  $\dfrac{ \tilde{\sigma}^2 }{ \hat{\sigma}^2 }$.
+\end{enumerate}
+
+\vspace{-1ex} $\tau$-percentile: $\tilde{\theta}_n$ be the $\lfloor \tau n \rfloor$-th order statistic, $F(\theta) = \tau$, then $$
+    \sqrt{n}(\tilde{\theta}_n - \theta) \Rightarrow \normal{0}{\frac{\tau (1-\tau)}{(F'(\theta))^2}}.
+$$
+(Hint: consider $S_n = \#\{i \leq n: X_i \leq \theta + {a}/{\sqrt{n}}\}$.)
+
+Delta method: $\sqrt{n}(f(\bar{X}_n) - f(\mu)) \Rightarrow \normal{0}{(f'(\mu))^2 \sigma^2}$.
+
+MLE: $\sqrt{n} (\hat{\theta}_n - \theta) \Rightarrow \normal{0}{I^{-\!1}(\theta)}$.
+
+
+
+
+\section*{Data Reduction}
+
+Sufficient: \begin{enumerate}[
+        leftmargin = 2em,
+    ]
+    \item def. conditional distribution $[X \cond T=t]$ doesn't depend on $\theta$.
+    \item B\&C\textsuperscript{6.2.2}. if $p(x \cond \theta) / q(T(x) \cond \theta)$ is free of $\theta$, then $T(X)$ is suff.
+    \item NFFC. $T(X)$ is sufficient if.f. $p_\theta(x) = g_\theta(T(x)) h(x)$.
+\end{enumerate}
+
+Minimal sufficient: %(achievable optimal, can have ``ancillary")
+    \begin{enumerate}[
+        leftmargin = 2em,
+    ]
+    \item def. sufficient $T$ is \underline{min.suff.} if $T$ is function of any other suff. $T'$.
+    \item if $p(x; \theta) = c_{x, y} p(y; \theta) \Leftrightarrow T(x) = T(y)$, then $T$ is min.suff.
+\end{enumerate}
+
+Complete: %(\verb|+| sufficient \verb|->| optimal)
+    \begin{enumerate}[
+        leftmargin = 2em,
+    ]
+    \item def. $V$ is \underline{ancillary} if the distribution of $V$ is free of $\theta$.
+    \item def. $V$ is \underline{first-order ancillary} if $\bE_\theta[V]$ is free of $\theta$.
+    \item def. $T$ is \underline{complete} if $\bE_\theta[f(T)] = 0$ for all $\theta$ implies $f(T) = 0$ a.e.
+    \item (Basu) complete and sufficient $U$ $\indep$ ancillary $V$.
+    \item (Rao-Blackwell) for conv.loss and suff $T$, $R(\theta, \bE[\delta \cond T] ) \leq R(\theta, \delta)$.
+    \item common steps: \begin{enumerate}[leftmargin = 2em]
+        \item suppose $\int f(x) h(x) e^{\theta x} \, dx = 0$ for all $\theta \in \Omega$,
+        \item decompose $f = f_{+} - f_{-}$ with $f_{+}, f_{-} \geq 0$,
+        \item view $f_+$ and $f_-$ as un-normalised densities $p_+$ and $p_-$,
+        \item argue that MGF of $p_+$ and $p_-$ are equal, then $f_+ = f_-$ a.e.
+    \end{enumerate}
+\end{enumerate}
+
+UMRUE: \begin{enumerate}[
+        leftmargin = 2em,
+    ]
+    \item def. $R(\theta, \delta) \leq R(\theta, \delta')$ for $\forall\, \theta \in \Omega$ and $\forall$ unbiased $\delta'$.
+    \item (Lehmann-Scheffe) if $T$ is comp.suff. and $\bE_\theta[h(T)] = g(\theta)$, then $h(T)$ is i) only unbiased fun. of $T$, ii) UMRUE under conv.loss.
+    \item $\delta_0$ is UMVUE of $g(\theta)$ if.f. $\bE[\delta_0(X) U] = 0$ for all $U$ with mean 0. 
+        \newline (Hint: consider $\delta_\lambda = \delta_0 + \lambda U$.)
+    \item strategies to find UMRUE \begin{enumerate}[leftmargin = 2em]
+        \item Rao-B. condition of comp.suff. on unbiased estimator.
+        \item [] cond.probability for discrete, ancillary for continuous.
+        \item Solve the unique $\delta$ satisfying $\bE_\theta[\delta(T)] = g(\theta)$.
+        \item Guess.
+    \end{enumerate}
+\end{enumerate}
+
+Fisher Information: \begin{enumerate}[
+        leftmargin = 2em,
+    ]
+    \item $I(\theta) = \bE[(\frac{\partial}{\partial\theta} \log f_\theta(x))^2] = -\bE[\frac{\partial^2}{\partial\theta^2} \log f_\theta(x)]$.
+    \item Cramer-Rao lower bound: $\var(\delta) \geq [g'(\theta)]^2 / I(\theta)$.
+        
+        $\varphi(x) = \frac{\partial}{\partial\theta} \log f_\theta(x), 
+        \bE_\theta[\varphi(X)] = 0, 
+        E_\theta[\delta^2] < \infty, 
+        g'(\theta) = \bE_\theta[\delta\varphi]$.
+\end{enumerate}
+
+% \begin{enumerate}[
+%         leftmargin = 2em,
+%     ]
+%     \item 
+% \end{enumerate}
+
+
+\section*{Exponential Family}
+
+general form: \vspace{-1ex}
+$$p(x; \theta) = \exp\{\sum_{i=1}^n \eta_i(\theta) T_i(x) - B(\theta)\} h(x).$$
+\vspace{-1em}\begin{enumerate}[
+        leftmargin = 2em,
+    ]
+    \item standardiser: $B(\theta) = \log \int \exp\{\sum_{i=1}^n \eta_i(\theta) T_i(x)\} h(x) \, dx$.
+    \item parameter space: $\Theta = \{\theta\!: B(\theta) < \infty\}$.
+\end{enumerate}
+
+
+canonical form: \vspace{-1ex}
+$$p(x; \eta) = \exp\{\sum_{i=1}^n \eta_i T_i(x) - B(\theta)\} h(x).$$
+\vspace{-1em}\begin{enumerate}[
+        leftmargin = 2em,
+    ]
+    \item natural parameter $\eta_i$, and nature parameter space.
+    \item def. canonical exp.fam. is \underline{minimal}, if no affine $T_i$'s and $\eta_i$'s. 
+        \newline ($\sum_i \lambda_i T_i(x) = \lambda_0$ implies $\lambda_i = 0$, similar for $\eta_i$'s.)
+    \item def. min.exp.fam. is \underline{full-rank}, if nat.par.space contain open rect.
+    \item if exp.fam. is full-rank, then $T$ is minimal sufficient and complete.
+\end{enumerate}
+
+
+
+
+
+\section*{Hypothesis Testing}
+
+Basic definition: \begin{enumerate}[
+        leftmargin = 2em,
+    ]
+    \item test function $\phi(x)$: the prob. rejects $H_0$ given $X=x$,
+    \item power function: $\beta(\theta) = \mbet[\phi(X)] = P_\theta(\text{rejects}\ H_0)$,
+    \item significant level $\alpha$: $\sup\limits_{\theta_0\in\Omega_0} \mbet[\phi(X)] \leq \alpha$,
+    \item \vspace{-1ex} level-$\alpha$ uniformly most powerful test $\phi$: if $$
+        \mbet[\phi(X)] \geq \mbet[\phi^*(X)] \quad \text{for all } \theta \in \Omega_1,
+    $$ for any other level-$\alpha$ test $\phi^*$.
+    \item families with monotone likelihood ratio in $T(X)$: \begin{enumerate}
+        \item $\theta \neq \theta'$ implies $p_\theta \neq p_{\theta'}$, (identifiability)
+        \item $\theta < \theta'$ implies the ratio $p_\theta(x) / p_{\theta'}(x)$ is a non-decreasing function of $T(X)$. (monotonicity)
+    \end{enumerate}
+\end{enumerate}
+
+
+Find UMP test: \begin{enumerate}[
+        leftmargin = 2em,
+    ]
+    \item Neyman-Pearson Lemma for simple vs simple: 
+    \item [] \textbf{Existence} there exist $\phi(x)$ and constant $k$ \begin{enumerate}
+        \item $\mbe_{p_0}[\phi(X)] = \alpha$, (size = level)
+        \item $\phi(x) = \begin{cases} 
+            1 \quad \text{ if }  \frac{p_1(x)}{p_0(x)} > k_\alpha \\[1ex] 
+            0 \quad \text{ if }  \frac{p_1(x)}{p_0(x)} < k_\alpha 
+        \end{cases}$
+    \end{enumerate}
+    \item [] \textbf{Sufficiency} if a test holds (a) and (b) for some $k$, then it is MP.
+    \item [] \textbf{Necessity} if a test $\phi$ is MP at level $\alpha$, then it holds (b) for some $k$, and also holds (a) unless $\exists$ a test of size $< \alpha$ and power $1$.
+    \item For MLR family, test $H_0: \theta \leq \theta_0 \text{ vs } H_1: \theta \geq \theta_1$: \begin{enumerate}
+        \item there exist a UMP test at level $\alpha$ of the form$$
+            \phi(x) = \begin{cases}
+                1  & \quad \text{if } T(x) > k\\
+                \gamma & \quad \text{if } T(x) = k\\
+                0 & \quad \text{if } T(x) < k
+            \end{cases},
+        $$
+        \item the power function $\beta(\theta) = \mbet[\phi(X)]$ is strictly increasing for $0 < \beta(\theta) < 1$.
+    \end{enumerate}
+\end{enumerate}
+
+
+
+Optimal Tests for Composite Nulls:
+
+Hypothesis: $H_0: X \sim f_\theta,\ \theta \in \Omega$ vs $H_1: X \sim g$.
+
+Consider new hypothesis $
+    H_\Lambda:\ X\sim h_\Lambda(x) = \int_{\Omega_0}f_\theta(x)\ d\Lambda(\theta).
+$
+
+Let $\beta_\Lambda$ be the power of MP level-$\alpha$ test $\phi_\Lambda$ for $H_\Lambda$ vs $H_1$.
+
+Prior $\Lambda$ is a least favorable dist if $\beta_\Lambda \leq \beta_{\Lambda'}$ for any prior $\Lambda'$.
+
+Suppose $\phi_\Lambda$ is an MP level $\alpha$-test for testing $H_\Lambda$ against $H_1$. If $\phi_\Lambda$ is level-$\alpha$ for the original hypothesis $H_0$, then \begin{enumerate}[
+        leftmargin = 2em,
+    ]
+    \item The test $\phi_\Lambda$ is MP for original test vs alternative,
+    \item The prior distribution $\Lambda$ is least favorable.
+\end{enumerate}
+
+
+
+
+\newpage
+
+
+
+
+
+
+
+\section*{Bayes Esti. and Average Risk Optimality}
+
+
+Basic definition: 
+    \begin{enumerate}[
+        leftmargin = 2em,
+    ]
+    \item loss function: $L(\theta, d)$,
+    \item risk: $R(\theta, \delta) = \mbe_\theta [L(\theta, \delta(X))]$,
+    \item average/Bayes risk: $r(\Lambda, \delta) = \int_\Omega R(\theta, \delta)\ d\Lambda(\theta)$,
+    \item posterior risk: $\mbe [L(\Theta, \delta(X)) \cond X=x]$,
+    \item Bayes estimator $\delta_\Lambda$: $\delta$ that minimizes $r(\Lambda, \delta)$,
+    \item Bayes risk: $r(\Lambda, \delta_{\Lambda})$ for prior $\Lambda$,
+    \item inadmissible (esimator $\delta$): if there exists another estimator $\delta'$ which dominates it (that is, such that $R(\theta, \delta')\leq R(\theta, \delta)$ for all $\theta$, with strict inequality for some $\theta$),
+    \item admissible: no such dominating estimator $\delta'$ exists. 
+\end{enumerate}
+
+Find Bayes estimator: 
+    \begin{enumerate}[
+        leftmargin = 2em,
+    ]
+    \item minimizing posterior loss (take derivative w.r.t. $d$). \begin{itemize}
+        \item[-] there exists $\delta_0$ with finite risk for all $\theta$.
+    \end{itemize}
+    \item posterior mean, for the squared loss function.
+\end{enumerate}
+
+Properties: \begin{enumerate}[
+        leftmargin = 2em,
+    ]
+    \item unbiased estimator $\delta$ for $g(\theta)$ is not Bayes est. under the squared loss function unless its average risk is zero. 
+        \begin{itemize}[leftmargin=2em]
+            \item [-] $r(\Lambda, \delta) < \infty$ and $\mbe[g(\Theta)^2] < \infty$.
+            \item [-] (Hint: $\bE_{(X, \Theta)}[\delta(X) g(\Theta)] = \bE_X[ \delta^2(X) ] = \bE_\Theta[g^2(\Theta)]$.)
+        \end{itemize}
+    \item unique Bayes estimator is admissible.
+    \item Bayes estimator is unique when \begin{enumerate}
+        \item under strictly convex loss function,
+        \item $r(\Lambda, \delta) < \infty$, finiteness for comparison,
+        \item $P_\theta << Q$, where $Q$ is the marginal dist. of $X$.
+            \newline (open support of $\Lambda$, and $P_\theta(A)$ cont. w.r.t. $\theta$)
+            \newline (fitness for comparison, same support)
+    \end{enumerate}
+    \item all admissible estimators are limits of Bayes estimators.
+\end{enumerate}
+
+Empirical Bayes estimator: \begin{enumerate}[
+        leftmargin = 2em,
+    ]
+    \item calculate marginal distribution of $X$: $$
+        m(x\cond r) = \int f(x\cond \theta) \pi(\theta \cond r)\ d\theta
+    $$
+    \item estimate the hyperparameter based on max $m(x\cond r)$.
+    \item minimize the empirical posterior loss: $$
+        \min_\delta \int L(\theta, \delta(x)) \pi(\theta\cond x, \hat{r}(x)) d\theta.
+    $$
+\end{enumerate}
+
+
+\section*{Minimaxity \& Worst-Case Optimality}
+
+Basic Definition: \begin{enumerate}[
+        leftmargin = 2em,
+    ]
+    \item minimax estimator: $\delta$ that minimize $\sup_{\theta\in\Omega}R(\theta, \delta)$.
+    \item least favourable prior $\Lambda$: $r_{\Lambda} \geq r_{\Lambda'}$ for any prior $\Lambda'$.
+    \item least favourable sequence of priors $\{r_{\Lambda_m}\}$: \begin{enumerate}
+        \item $r_{\Lambda_m} = r(\Lambda_m, \delta_{\Lambda_m}) \rightarrow r < \infty$,
+        \item $r \geq r_{\Lambda'}$ for any prior $\Lambda'$.
+    \end{enumerate}
+\end{enumerate}
+
+Find minimax estimator: \begin{enumerate}[
+        leftmargin = 2em,
+    ]
+    \item If Bayes risk = minimax risk, i.e. $r_\Lambda = \sup_\theta R(\theta, \delta_{\Lambda})$, \begin{enumerate}
+        \item Bayes estimator $\delta_{\Lambda}$ is minimax,
+        \item $\Lambda$ is a least favourable prior,
+        \item unique Bayes esti. implies unique minimax esti.
+    \end{enumerate}
+    \item If a Bayes estimator has constant risk, it's minimax.
+    \item $\omega_\Lambda \!=\! \{\theta\!: R(\theta, \delta_\Lambda) \!=\! \sup_{\theta'}\! R(\theta', \delta_\Lambda)\}$, $\delta_\Lambda$ is minimax if $\Lambda(\omega_\Lambda) \!=\! 1$.
+    \item If a sequence of priors $\{r_{\Lambda_m}\}$ with $r_{\Lambda_m}\rightarrow r < \infty$, and there exists estimator $\delta$ with $\sup_{\theta} R(\theta, \delta) = r$, then 
+    % \newline (a) $\delta$ is minimax, (b) $\{r_{\Lambda_m}\}$ is least-favourable.
+    \begin{enumerate}
+        \item $\delta$ is minimax,
+        \item $\{r_{\Lambda_m}\}$ is least-favourable.
+    \end{enumerate}
+\end{enumerate}
+
+Property: \begin{enumerate}[
+        leftmargin = 2em,
+    ]
+    \item minimax esti. may not necessarily be Bayes esti.
+    \item admissible with constant risk, implies minimax.
+    \item minimaxity may not guarantee admissibility.
+\end{enumerate}
+
+Randomized minimax estimator for non-convex losses.
+
+Prove (in)admissibility: \begin{enumerate}[
+        leftmargin = 2em,
+    ]
+    \item support of parameter,
+    \item risk equal to $0$ at some par. point,
+    \item unique Bayes estimator, or convex combination,
+    \item limiting Bayes method: \begin{enumerate}
+        \item assume minimax esti. is inadmissible,
+        \item construct strictly dominating esti.,
+        \item calculate average risk of Bayes esti. and dominating esti. under same conjucate prior,
+        \item calculate the ratio of diff. of minimax risk and average risk, take hyperpar. to infinity.
+    \end{enumerate}
+    \item (def) find dominating estimator.
+\end{enumerate}
+
+
+
+
+
+
+
+\section*{Common Distributions}
+
+\begin{enumerate}[
+        leftmargin = 2em,
+    ]
+    \item Gamma distribution: $$
+        f_X(x \cond \alpha, \beta) = \frac{1}{\Gamma(\alpha)\beta^\alpha} x^{\alpha - 1} e^{-x/\beta}
+    $$ 
+    
+    \vspace{-1ex} with mean $\alpha\beta$, variance $\alpha\beta^2$, $k$-th moment $\dfrac{\Gamma(\alpha+k)}{\Gamma(\alpha)}\beta^n$.
+    
+    Gamma function: \begin{enumerate}
+        \item $\Gamma(\alpha + 1) = \alpha \Gamma(\alpha), \quad \alpha > 0$,
+        \item $\Gamma(n) = (n-1)!, \quad n\text{ is integer}$, 
+        \item $\Gamma(1) = 1,\ \Gamma(\frac{1}{2}) = \sqrt{\pi}$.
+    \end{enumerate}
+    \item Beta distribution: $$
+        f(x \cond \alpha, \beta)=\frac{1}{B(\alpha, \beta)}x^{\alpha-1}(1-x)^{\beta-1}
+    $$ 
+    
+    \vspace{-1ex} with moment  $(\dfrac{\alpha}{\alpha + \beta})$ $\dfrac{B(\alpha+n, \beta)}{B(\alpha, \beta)}$, where $B(\alpha, \beta)=\dfrac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)}$.
+    
+    \item Exponential distribution: 
+        \[ f_X(x \vert \lambda)=\frac{1}{\lambda}e^{-x/\lambda}, \quad 0\leq x < \infty,\ \lambda > 0. \]
+        with $\bE[X] = \lambda$, $\var{X} = \lambda^2$.
+    
+    \item Poisson distribution: 
+        \[ P(X=x \vert \lambda)=\frac{e^{-\lambda}\lambda^x}{x!}, \quad x = 0, 1, \dots. \]
+        with $\bE[X] = \lambda$, $\var{X} = \lambda$.
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
